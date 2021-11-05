@@ -40,7 +40,7 @@ h1 {
 	font-size: xxx-large;
 }
   
-h1, main p, .App {
+h1, main p, #dashboard {
 	margin-left: 6%;
 }
 
@@ -61,7 +61,64 @@ main p:first-of-type {
 	background-color: #FBFBFB;
 	border-radius: 5px;
 	padding: 3% 0%;
-	/* overflow: hidden; */
-	/* max-width: 70%; */
 }
-  
+
+
+#graph {
+	width: 70%;
+}
+#summary {
+	width: 30%;
+}
+#dashboard {
+	display: flex;
+	justify-content: space-between;
+}
+#summary div.summaryItem {
+	margin: 0 auto 45px;
+	width: 258px;
+	display: flex;
+	background-color: #FBFBFB;
+	height: 124px;
+}
+#summary div div:first-of-type {
+	width: 45px;
+}
+#summary div div:first-of-type img {
+	margin: 21px auto;
+}
+#summary div div:last-of-type p:last-of-type {
+	font-size: small;
+	color: gray;
+	font-weight: normal;
+}
+#summary div div:last-of-type p:first-of-type {
+	font-size: large;
+	color: black;
+	font-weight: bold;
+}
+#summary div div:first-of-type {
+	width: 60px;
+	height: 60px;
+	border-radius: 5px;
+	text-align: center;
+}
+.summaryItem div {
+	margin: 32px auto;
+}
+.summaryItem div p {
+	margin: 8px auto;
+}
+
+#calories div:first-of-type {
+	background-color: rgba(255, 0, 0, 0.066);
+}
+#glucides div:first-of-type {
+	background-color: rgba(249, 206, 35, 0.1);
+}
+#lipides div:first-of-type {
+	background-color: rgba(253, 81, 129, 0.1);
+}
+#proteines div:first-of-type {
+	background-color: rgba(74, 184, 255, 0.1);
+}

@@ -17,7 +17,7 @@ function topRoundedColumn(x, y, height, width) {
 
 
  
-const DailyActivityGraph = ({ data, dimensions }) => {
+function DailyActivityGraph({ data, dimensions }) {
   const svgRef = React.useRef(null);
   const { width, height, margin } = dimensions;
   const svgWidth = width + margin.left + margin.right;
