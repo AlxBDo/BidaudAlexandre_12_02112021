@@ -1,0 +1,67 @@
+body{ 
+	height: 100%;
+	min-width: 1024px;
+}
+body, html, #root {
+	margin: 0;
+	padding: 0;
+}
+
+a { text-decoration: none;}
+
+header img, header nav { margin: 0.5% 2%; }
+
+main {
+	width: 80%;
+	margin: auto;
+}
+
+.flex{ display: flex;}
+
+.App {
+	background-color: #FBFBFB;
+	border: 1px solid white;
+	display: inline-block;
+	margin-top: 45px;
+  }
+
+  .tooltip {
+	position: absolute;
+	background-color: #E60000;
+	padding: 1%;
+	color: white;
+}
+.tooltip p {
+	font-size: small;
+}
+
+h1 {
+	margin-top: 7%;
+	font-size: xxx-large;
+}
+  
+h1, main p, .App {
+	margin-left: 6%;
+}
+
+h1 span {
+	color: #FF0101;
+}
+
+main p:first-of-type {
+	font-size: large;
+	font-weight: bold;
+}
+
+.day:hover {
+	fill: #C4C4C4;
+}
+
+#daily-activity-graph {
+	background-color: #FBFBFB;
+	border-radius: 5px;
+	padding: 3% 0%;
+	/* overflow: hidden; */
+	/* max-width: 70%; */
+}
+  
