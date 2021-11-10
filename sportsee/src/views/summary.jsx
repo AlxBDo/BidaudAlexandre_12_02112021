@@ -12,6 +12,7 @@ function summaryItem(name, value){
         case "Calories" :
             srcImg = calorieIcon
             unit = "kCal"
+            value = value.toFixed(2)
             break
         case "Glucides" :
             srcImg = glucidIcon
@@ -39,7 +40,7 @@ function Summary(props){
     const {calorie, glucid, lipid, protein} = props
     return(
         <section id="summary">
-            {summaryItem("Calories", calorie)}
+            {summaryItem("Calories", calorie/100)}
             {summaryItem("Proteines", protein)}
             {summaryItem("Glucides", glucid)}
             {summaryItem("Lipides", lipid)}

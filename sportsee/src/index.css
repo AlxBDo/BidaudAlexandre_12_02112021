@@ -1,3 +1,4 @@
+*{ font-family: "Roboto"}
 body{ 
 	height: 100%;
 	min-width: 1024px;
@@ -12,8 +13,7 @@ a { text-decoration: none;}
 header img, header nav { margin: 0.5% 2%; }
 
 main {
-	width: 80%;
-	margin: auto;
+	margin-left: 10%;
 }
 
 .flex{ display: flex;}
@@ -121,4 +121,9 @@ main p:first-of-type {
 }
 #proteines div:first-of-type {
 	background-color: rgba(74, 184, 255, 0.1);
+}
+
+#performances {
+	margin-left: 3.5%;
+	margin-right: 3.5%;
 }

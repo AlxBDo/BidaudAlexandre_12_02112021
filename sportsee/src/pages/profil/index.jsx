@@ -2,13 +2,10 @@ import { useParams } from 'react-router-dom'
 
 import user from "../../utils/user.js"
 import DailyActivityGraph from '../../views/dailyActivityGraph.js';
+import AverageSessionsChart from '../../views/averageSessionsChart.jsx';
+import PerformancesChart from '../../views/performancesChart.jsx';
+import ScoreChart from '../../views/scoreChart.jsx';
 import Summary from '../../views/summary.jsx';
-
-const dimensions = {
-    width: 835,
-    height: 320,
-    margin: { top: 5, right: 50, bottom: 5, left: 50 }
-  }
 
 
 function Profil() {
@@ -21,7 +18,10 @@ function Profil() {
             <p>Félicitation ! Vous avez explosé vos objectifs hier 👏 </p>
             <div id="dashboard">
                 <section id="graph">
-                    <DailyActivityGraph data= {userObj.getActivity()} dimensions={dimensions} />
+                    <DailyActivityGraph data= {userObj.getActivity()} />
+                    <AverageSessionsChart data={ userObj.getAverageSessions() } />
+                    <PerformancesChart data={ userObj.getPerformances() } />
+                    <ScoreChart data={ userObj.getScore() } />
                 </section>
                 <Summary 
                     calorie={userObj.getCalorieCount()} 

@@ -3,11 +3,12 @@ import { USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_MAIN_DATA, USER_PERFORMANCE 
 export default class user {
 
     activity
-    averageSession
+    averageSessions
     id
     keyData
     mainData
     performances
+    todayScore
 
     constructor(id){
         if(this.setId(id)){ this.getData() }
@@ -15,16 +16,23 @@ export default class user {
 
     getActivity(){ return this.activity }
 
+    getAverageSessions() { return this.averageSessions }
+
     getCalorieCount(){ return this.keyData.calorieCount }
 
     getCarbohydrateCount(){ return this.keyData.carbohydrateCount }
 
+    getPerformances() { return this.performances }
+
+    getScore() { return this.todayScore }
+
     getData(){
         this.activity = USER_ACTIVITY.filter(session => session.userId === this.id)[0].sessions
-        this.averageSession = USER_AVERAGE_SESSIONS.filter(session => session.userId === this.id)[0].sessions 
+        this.averageSessions = USER_AVERAGE_SESSIONS.filter(session => session.userId === this.id)[0].sessions 
         this.keyData = USER_MAIN_DATA.filter(user => user.id === this.id)[0].keyData
         this.mainData = USER_MAIN_DATA.filter(user => user.id === this.id)[0].userInfos
-        this.performances = USER_PERFORMANCE.filter(perf => perf.userId === this.id)[0]
+        this.performances = USER_PERFORMANCE.filter(perf => perf.userId === this.id)[0] 
+        this.todayScore = USER_MAIN_DATA.filter(user => user.id === this.id)[0].todayScore
     }
 
     getFirstName(){ return this.mainData.firstName }
