@@ -39,6 +39,7 @@ const MenuSection = styled.section`
     min-width: 100px;
     justify-content: flex-end;
     top: 70px;
+    height: 100%
 `
 
 class PageMenu extends Component {

@@ -1,8 +1,8 @@
 import React from "react";
 import * as d3 from "d3";
 
-import chartDimensions from "../utils/chartDimensions";
-import {GraphicContainer}  from "../utils/style";
+import chartDimensions from "../../utils/chartDimensions";
+import {GraphicContainer}  from "../../utils/style";
 
 
 function topRoundedColumn(x, y, height, width) {
@@ -24,7 +24,7 @@ function DailyActivityGraph({ data }) {
   const backgroundColor = "#FBFBFB"
   const containerWidth = "96%"
   const svgRef = React.useRef(null);
-  const { width, height, margin } = chartDimensions.calculate(0.5, 320);
+  const { width, height, margin } = chartDimensions.calculate((0.9*0.60), 320);
   const svgWidth = width + margin.left + margin.right;
   const svgHeight = height + margin.top + margin.bottom;
   const div = d3.select("body").append("div")

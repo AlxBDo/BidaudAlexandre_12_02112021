@@ -1,9 +1,9 @@
 import React from "react";
 
-import calorieIcon from "../assets/calories_icon.png"
-import glucidIcon from "../assets/glucides_icon.png"
-import lipidIcon from "../assets/lipides_icon.png"
-import proteinIcon from "../assets/proteines_icon.png"
+import calorieIcon from "../../assets/calories_icon.png"
+import glucidIcon from "../../assets/glucides_icon.png"
+import lipidIcon from "../../assets/lipides_icon.png"
+import proteinIcon from "../../assets/proteines_icon.png"
 
 function summaryItem(name, value){
     let unit = "g"
@@ -12,7 +12,7 @@ function summaryItem(name, value){
         case "Calories" :
             srcImg = calorieIcon
             unit = "kCal"
-            value = value.toFixed(2)
+            value = value.toFixed(3)
             break
         case "Glucides" :
             srcImg = glucidIcon
@@ -40,7 +40,7 @@ function Summary(props){
     const {calorie, glucid, lipid, protein} = props
     return(
         <section id="summary">
-            {summaryItem("Calories", calorie/100)}
+            {summaryItem("Calories", calorie/1000)}
             {summaryItem("Proteines", protein)}
             {summaryItem("Glucides", glucid)}
             {summaryItem("Lipides", lipid)}

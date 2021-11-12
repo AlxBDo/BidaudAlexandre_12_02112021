@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom'
 
 import user from "../../utils/user.js"
-import DailyActivityGraph from '../../views/dailyActivityGraph.js';
-import AverageSessionsChart from '../../views/averageSessionsChart.jsx';
-import PerformancesChart from '../../views/performancesChart.jsx';
-import ScoreChart from '../../views/scoreChart.jsx';
-import Summary from '../../views/summary.jsx';
+import DailyActivityGraph from '../../components/dailyActivityGraph';
+import AverageSessionsChart from '../../components/averageSessionsChart/index.jsx';
+import PerformancesChart from '../../components/performancesChart';
+import ScoreChart from '../../components/scoreChart';
+import Summary from '../../components/summary';
 
 
 function Profil() {

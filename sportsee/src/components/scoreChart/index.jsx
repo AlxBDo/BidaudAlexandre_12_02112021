@@ -1,8 +1,8 @@
 import React from "react";
 import * as d3 from "d3";
 
-import chartDimensions from "../utils/chartDimensions";
-import {GraphicContainer}  from "../utils/style";
+import chartDimensions from "../../utils/chartDimensions";
+import {GraphicContainer}  from "../../utils/style";
 
  
 const ScoreChart = ({ data }) => {
@@ -26,27 +26,31 @@ const ScoreChart = ({ data }) => {
     let score = data * 100
     const colors = [backgroundColor, "rgba(255, 0, 0, 1)"]
     var dataset = {things: [(100-score), score],};
-    var radius = Math.min(svgWidth, svgHeight) / 2;
+    var radius = Math.min(width, height) / 1.75;
     var pie = d3.pie().sort(null);
     var arc = d3.arc()
-        .innerRadius(radius - 35)
+        .innerRadius(radius - 40)
         .outerRadius(radius - 50)
         .cornerRadius(10);
+    // add title
+    svg.append("text").text("Score").attr("transform", "translate(-110, -95)")
+    // add path and draw chart arcs
     svg.selectAll("path")
         .data(pie(dataset.things))
         .enter().append("path")
+        .attr("transform", "translate(0, 15)")
         .attr("fill", function(d, i) { return colors[i]; })
         .attr("d", arc);
     svg.append("circle")
     .attr("cx",0)
-    .attr("cy",0)
-    .attr("r",(width - (margin.left + margin.right))*0.39)
+    .attr("cy",15)
+    .attr("r",radius*0.625)
     .attr("fill", "white");
     // add text
     let text = svg.append("text").attr("text-anchor", "middle")
     text.append("tspan")
     .attr("x", 0)
-    .attr("y", -10)
+    .attr("y", -2.5)
     .style("font-size", "30px")
     .style("font-weight", "bold")
     .text(`${score}%`)

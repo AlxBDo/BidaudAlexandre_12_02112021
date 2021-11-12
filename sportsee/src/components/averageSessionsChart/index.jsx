@@ -2,8 +2,8 @@ import React from "react";
 
 import * as d3 from "d3";
 
-import chartDimensions from "../utils/chartDimensions";
-import {GraphicContainer}  from "../utils/style";
+import chartDimensions from "../../utils/chartDimensions";
+import {GraphicContainer}  from "../../utils/style";
 
 
 function addTooltip(svg) {
@@ -11,20 +11,14 @@ function addTooltip(svg) {
   var tooltip = svg.append("g")
       .attr("id", "tooltip")
       .style("display", "none");
-  
-  // Le cercle extérieur bleu clair
-  tooltip.append("circle")
-      .attr("fill", "#CCE5F6")
-      .attr("r", 10);
 
   // Le cercle intérieur bleu foncé
   tooltip.append("circle")
-      .attr("fill", "#3498db")
+      .attr("fill", "white")
       .attr("stroke", "#fff")
-      .attr("stroke-width", "1.5px")
       .attr("r", 4);
   
-  // Le tooltip en lui-même avec sa pointe vers le bas
+  // Le tooltip en lui-même 
   // Il faut le dimensionner en fonction du contenu
   tooltip.append("rect")
       .attr("width","40")
@@ -59,9 +53,10 @@ function addTooltip(svg) {
  
 const AverageSessionsChart = ({ data }) => {
   const backgroundColor = "#F00"
+  const chartTitle = ["Durée moyenne des", "sessions"]
   const containerWidth = 31
   const svgRef = React.useRef(null);
-  const { width, height, margin } = chartDimensions.calculate(0.15, 285, 25, 0, 25, 0);
+  const { width, height, margin } = chartDimensions.calculate((0.9*0.7*0.3), 285);
   const svgWidth = width + margin.left + margin.right;
   const svgHeight = height + margin.top + margin.bottom;
  
@@ -71,17 +66,16 @@ const AverageSessionsChart = ({ data }) => {
     svgEl.selectAll("*").remove(); // Clear svg content before adding new elements 
     const svg = svgEl
       .append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
+      .attr("transform", `translate(0,${margin.top})`);
       
-    let days = ["L", "M", "M ", "J", "V", "S", "D"]
-
     // Séparation sur l'axe horizontal entre chaque essaim
+    let days = ["L", "M", "M ", "J", "V", "S", "D"]
     let xCoords = days.map((d, i) => i * width/7);
     
     const x = d3.scaleOrdinal().domain(days).range(xCoords);
   
     const y = d3.scaleLinear()
-      .range([height-15, 0]);
+      .range([height, 50]);
 
     y.domain(d3.extent(data, d => d.sessionLength));
 
@@ -93,49 +87,13 @@ const AverageSessionsChart = ({ data }) => {
 
     // Ajout de l'axe X
     svg.append("g")
-        .attr("transform", "translate("+ width/28 +"," + height + ") scale(0.95, 1)")
+        .attr("transform", "translate(10," + (height+15) + ")")
         .call(d3.axisBottom(x))
         .attr("stroke-width", 0)
         .style("color", "rgba(255, 255, 255, 0.6)")
         .style("font-size", "small")
-        .style("font-weight", "bold");
-
-    const tooltip = addTooltip(svg)
-
-    const mousemove = (event) => {
-      let bisecDay = d3.bisector(d => xCoords[d.day]).left
-      var x0 = x(d3.pointer(event)[0]),
-      i = bisecDay(data, x0),
-      d = data[i];
-      if(i >= 0 && i < data.length) {
-        let previousLocation = parseInt(d3.select('#tooltip-date').text().substring(5))
-        if(!isNaN(previousLocation) && (previousLocation+1) !== i && (previousLocation-1) !== i){
-          if(i > previousLocation){
-            previousLocation = previousLocation < (data.length - 1) ? (previousLocation + 1) : 0  
-          } else {
-            previousLocation = previousLocation > 0 ? (previousLocation-1) : data.length
-          }
-          d = data[i]
-        }
-        tooltip.attr("transform", "translate(" + x(d.day) + "," + y(d.sessionLength) + ")");
-        d3.select('#tooltip-close')
-            .text(d.sessionLength + " min");
-      }
-      
-    }
-    
-    svg.append("rect")
-    .attr("class", "overlay")
-    .attr("width", width)
-    .attr("height", svgHeight)
-    .attr("opacity", 0.25)
-    .on("mouseover", function(event) { 
-        tooltip.style("display", null);
-    })
-    .on("mouseout", function(event) {
-        tooltip.style("display", "none");
-    })
-    .on("mousemove", mousemove);
+        .style("font-weight", "bold")
+        .style("text-align", "center");
     
     // Ajout d'un path calculé par la fonction line à partir des données de notre fichier.
     svg.append("path")
@@ -143,7 +101,51 @@ const AverageSessionsChart = ({ data }) => {
         .attr("class", "line")
         .attr("d", line)
         .attr("stroke", "white")
-        .attr("fill", "none");
+        .attr("stroke-width", 2)
+        .attr("fill", "none")
+        .attr("transform", "translate(1.5, 0) scale(1.1, 1)");
+
+    const mousemove = (event) => {
+      let position = d3.pointer(event)[0]
+      x.invert = foo => xCoords[(parseInt(foo/((width-(150-(position*0.3)))/7)))]
+      let bisecDay = d3.bisector(d => xCoords[d.day]).left
+      let x0 = x.invert(position),
+      i = bisecDay(data, x0),
+      d = data[i];
+      d3.select('.overlayBackground').attr("transform", `translate(${position}, 0)`)
+      if(i >= data.length){ d = data[6] }
+      if(i >= 0) {
+        tooltip.attr("transform", "translate(" +position + "," + y(d.sessionLength) + ")");
+          d3.select('#tooltip-close')
+              .text(d.sessionLength + " min");
+      }
+    }
+    
+    svg.append("rect")
+    .attr("class", "overlayBackground")
+    .attr("width", width)
+    .attr("height", svgHeight+50)
+    .attr("opacity", 0.15)
+    .attr("y", -50)
+
+    const tooltip = addTooltip(svg)
+    
+    svg.append("rect")
+    .attr("class", "overlay")
+    .attr("width", width)
+    .attr("height", svgHeight)
+    .attr("fill", "transparent")
+    .on("mouseover", function(event) { 
+        tooltip.style("display", null);
+    })
+    .on("mouseout", function(event) {
+        tooltip.style("display", "none");
+    })
+    .on("mousemove", mousemove);
+
+    let titlePath = svg.append("text").attr("fill", "white").style("color", "white").attr("opacity", 0.5)
+    titlePath.append("tspan").text(chartTitle[0]).attr("y", 20).attr("x", 30)
+    titlePath.append("tspan").text(chartTitle[1]).attr("x", 30).attr("dy", "1.95em")
 
   }, [data, svgHeight, width, height, margin.left, margin.right, margin.top]); // Redraw chart if data changes
  

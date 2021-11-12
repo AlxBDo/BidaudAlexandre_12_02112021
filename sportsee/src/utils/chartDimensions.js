@@ -9,8 +9,10 @@ const chartDimensions = {
         marginBottom = 50,
         marginLeft = 25
     ) {
+        let width = parseInt(this.windowWidth * multiplierOfWidth)
+        if(height === "width"){ height = width}
         return {
-            width: parseInt(this.windowWidth * multiplierOfWidth), 
+            width: width, 
             height: height-(marginTop+marginBottom), 
             margin: { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft }
         }

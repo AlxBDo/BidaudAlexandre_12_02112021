@@ -4,7 +4,7 @@ export const GraphicContainer = styled.div`
     ${(props) => (
         `background-color: ${props.$bgColor};
         width: ${props.$width}%;
-        border-radius: 5px;
+        border-radius: 7px;
         text-align: center;
         ${props.$width < 40 ? (
         `display: inline-block;
