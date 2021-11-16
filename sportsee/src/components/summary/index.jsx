@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types"
 
 import calorieIcon from "../../assets/calories_icon.png"
 import glucidIcon from "../../assets/glucides_icon.png"
@@ -46,6 +47,18 @@ function Summary(props){
             {summaryItem("Lipides", lipid)}
         </section>
     )
+}
+
+summaryItem.propTypes = {
+  name : PropTypes.string.isRequired,
+  value : PropTypes.number.isRequired
+}
+
+Summary.propTypes = {
+    calorie : PropTypes.number.isRequired, 
+    protein : PropTypes.number.isRequired, 
+    glucid : PropTypes.number.isRequired, 
+    lipid : PropTypes.number.isRequired
 }
 
 export default Summary

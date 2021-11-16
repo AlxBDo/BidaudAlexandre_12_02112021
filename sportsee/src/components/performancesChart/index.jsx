@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types"
 import * as d3 from "d3";
 
 import chartDimensions from "../../utils/chartDimensions";
@@ -10,9 +10,7 @@ const PerformancesChart = ({ data }) => {
   const backgroundColor = "rgba(40, 45, 48, 1)"
   const containerWidth = 31
   const svgRef = React.useRef(null);
-  const { width, height, margin } = chartDimensions.calculate(0.15, 285, 25, 25, 5, 25);
-  const svgWidth = width;
-  const svgHeight = height + margin.top + margin.bottom;
+  const { width, height, margin } = chartDimensions.calculate((0.9*0.7*0.31), "width", 0.05, 0.05, 0.05, 0.05);
  
   React.useEffect(() => {
     // Create root container where we will append all other chart elements
@@ -20,13 +18,13 @@ const PerformancesChart = ({ data }) => {
     svgEl.selectAll("*").remove(); // Clear svg content before adding new elements 
     const svg = svgEl
       .append("g")
-      .attr("transform", `translate(${margin.left*2},${(margin.top+margin.bottom)*2})`);
+      .attr("transform", `translate(${width/4},${height/4})`);
       
     // Radius of radar chart
-    const r = 85
+    const r = (width*0.9)/4
     
     let frenchDimensions = ["Cardio", "Energie", "Endurance", "Force", "Vitesse", "Intensité"]
-    const dimensions = Object.values(data.kind).map((d, i) => frenchDimensions[i])
+    const dimensions = Object.values(data.kind).map((d, i) => frenchDimensions[i]).reverse()
     let values = data.data.reduce((a, k) => {
       a.push(k.value)
       return a
@@ -36,10 +34,7 @@ const PerformancesChart = ({ data }) => {
       for(let i = 0; i < 7 ; i++){ ticksArray.push(parseInt((maxValue/6) * i)) }
       return ticksArray
     }
-
     let performancesValues = data.data.reduce((a, k) => Object.assign(a, {[dimensions[(k.kind - 1)]]: k.value}), {})
-    
-    console.log("Values = ", performancesValues)
     // Line generator for radial lines
     const radialLine = d3.lineRadial()
     
@@ -79,7 +74,6 @@ const PerformancesChart = ({ data }) => {
       .attr('text-anchor', i === 0 || i === 3 ? 'middle' : i < 3 ? "start" : "end")
       .attr('transform', `translate(0, -${r + 10}) rotate(${i * -60})`)
     })
-  
     // Line for the base stats of Snorlax
     svg.append('g')
       .selectAll('path')
@@ -87,12 +81,12 @@ const PerformancesChart = ({ data }) => {
       .enter()
       .append('path')
         .attr('d', radialLine([
-            performancesValues["Cardio"],
-            performancesValues["Energie"],
-            performancesValues["Endurance"],
-            performancesValues["Force"],
+            performancesValues["Intensité"],
             performancesValues["Vitesse"],
-            performancesValues["Intensité"]
+            performancesValues["Force"],
+            performancesValues["Endurance"],
+            performancesValues["Energie"],
+            performancesValues["Cardio"]
           ].map((v, i) => [Math.PI * 2 * i / 6 /* radian */, yScale(v) /* distance from the origin */])) 
         )
         // Move to the center
@@ -111,13 +105,17 @@ const PerformancesChart = ({ data }) => {
         .attr('opacity', 0.5)
         .attr('fill', 'transparent')
 
-  }, [data, margin.left, margin.right, margin.top]); // Redraw chart if data changes
+  }, [data, margin.left, margin.right, margin.top, margin.bottom, height, width]); // Redraw chart if data changes
  
   return (
     <GraphicContainer id="performances" $bgColor={backgroundColor} $width={containerWidth}>
-        <svg ref={svgRef} width={svgWidth} height={svgHeight} />
+        <svg ref={svgRef} width={width} height={height} />
     </GraphicContainer>
   )
 };
+
+PerformancesChart.propTypes = {
+  data : PropTypes.object.isRequired
+}
  
 export default PerformancesChart;

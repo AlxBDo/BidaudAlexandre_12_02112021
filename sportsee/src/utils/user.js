@@ -1,3 +1,5 @@
+import PropTypes from "prop-types"
+
 import { USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_MAIN_DATA, USER_PERFORMANCE } from "../datas/data"
 
 export default class user {
@@ -52,4 +54,8 @@ export default class user {
         }
     }
 
+}
+
+user.PropTypes = {
+    id : PropTypes.number.isRequired
 }

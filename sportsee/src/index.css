@@ -69,7 +69,7 @@ main p:first-of-type {
 	width: 70%;
 }
 #summary {
-	width: 30%;
+	margin-right: 3%;
 }
 #dashboard {
 	display: flex;
@@ -77,13 +77,13 @@ main p:first-of-type {
 }
 #summary div.summaryItem {
 	margin: 0 auto 45px;
-	width: 258px;
+	max-width: 258px;
 	display: flex;
 	background-color: #FBFBFB;
-	height: 124px;
-}
-#summary div div:first-of-type {
-	width: 45px;
+	max-height: 124px;
+	align-items: center;
+	min-width: 190px;
+	border-radius: 5px;
 }
 #summary div div:first-of-type img {
 	margin: 21px auto;
@@ -105,7 +105,7 @@ main p:first-of-type {
 	text-align: center;
 }
 .summaryItem div {
-	margin: 32px auto;
+	margin: 7%;
 }
 .summaryItem div p {
 	margin: 8px auto;
