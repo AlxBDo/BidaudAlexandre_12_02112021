@@ -1,4 +1,3 @@
-import { Component } from "react"
 import { Link } from "react-router-dom"
 import styled from 'styled-components'
 
@@ -42,28 +41,28 @@ const StyledSecondP = styled.p`
     }
 `
 
-const StylledMain = styled.main`
+const StyledMain = styled.main`
     color: var(--first-color);
     text-align: center;
 `
 
-
-class Error extends Component {
-
-    render() {
-        return(
-            <StylledMain className="error-msg">
-                <StyledDiv>
-                    <StyledFirstP id="page-not-found">404</StyledFirstP>
-                    <StyledSecondP>Oups! La page que vous demandez n'existe pas.</StyledSecondP>
-                </StyledDiv>
-                <StyledDiv>
-                    <HomePageReturnLink to="/">Retourner sur la page d'accueil</HomePageReturnLink>
-                </StyledDiv>
-            </StylledMain>
-        )
-    }
-
+/**
+ * Component for displaying error message when route does not exist
+ * @component
+ * @returns {object} StyledMain - <main> styled component
+ */
+function Error() {
+    return(
+        <StyledMain className="error-msg">
+            <StyledDiv>
+                <StyledFirstP id="page-not-found">404</StyledFirstP>
+                <StyledSecondP>Oups! La page que vous demandez n'existe pas.</StyledSecondP>
+            </StyledDiv>
+            <StyledDiv>
+                <HomePageReturnLink to="/">Retourner sur la page d'accueil</HomePageReturnLink>
+            </StyledDiv>
+        </StyledMain>
+    )
 }
 
 export default Error

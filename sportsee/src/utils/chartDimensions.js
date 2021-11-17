@@ -4,18 +4,23 @@ import PropTypes from "prop-types"
  * adapts the dimensions of the graphic to those of the window
  */
 const chartDimensions = {
+    
     windowWidth: parseInt(window.innerWidth),
 
     /**
-     * 
+     * calculate chart dimensions
      * @param {number} multiplierOfWidth - multiplying coefficient indicating 
      * the desired width of the graph in relation to the width of the window
-     * @param {number | string[]} [height = width] - 
-     * @param {*} marginTop 
-     * @param {*} marginRight 
-     * @param {*} marginBottom 
-     * @param {*} marginLeft 
-     * @returns 
+     * @param {number | string[]} [height = width] - the height in number to 
+     * apply in pixels or the keyword "width" to obtain a height equal to the width
+     * @param {number} [marginTop] - the multiplier to apply to the width of the chart to obtain the margin top
+     * @param {number} [marginRight] - the multiplier to apply to the width of the chart to obtain the margin right
+     * @param {number} [marginBottom] - the multiplier to apply to the width of the chart to obtain the margin bottom
+     * @param {number} [marginLeft] - the multiplier to apply to the width of the chart to obtain the margin left
+     * @returns {object} dimensions - object storing the dimensions and margins of the chart, in its attributes : width, height and margin (object)
+     * @returns {number} dimensions.width - chart width 
+     * @returns {number} dimensions.height - chart height
+     * @returns {object} dimensions.margin - object storing the margins of the chart, in its attributes : top, right, bottom and left
      */
     calculate : function (
         multiplierOfWidth, 

@@ -2,32 +2,45 @@ import React from "react";
 import PropTypes from "prop-types"
 import * as d3 from "d3";
 
-import chartDimensions from "../../utils/chartDimensions";
 import {GraphicContainer}  from "../../utils/style";
 import {topRoundedColumn} from "./topRoundedColumn"
- 
-function DailyActivityGraph({ data }) {
+
+/**
+ * component for displaying user daily activity chart
+ * @component
+ * @param {array} data - array of objects containing the data needed for the daily activity graph
+ * @example data : [ { day: <string>, kilogram : <integer>, calories : <integer>}]
+ * @returns {object} GraphicContainer - styled component
+ */
+function DailyActivityGraph({ data, dimensions }) {
   const backgroundColor = "#FBFBFB"
   const containerWidth = "96%"
   const svgRef = React.useRef(null);
-  const { width, height, margin } = chartDimensions.calculate((0.9*0.60), 320, 0.05, 0.05, 0.05, 0.05);
-  const div = d3.select("body").append("div")
-    .attr("class", "tooltip")         
-    .style("opacity", 0);
+  const { width, height, margin } = dimensions.calculate((0.9*0.60), 320, 0.05, 0.05, 0.05, 0.05);
+
   React.useEffect(() => {
-    const xScale = d3.scaleBand()
-    .range([0, width])
-    .padding(0.1)
-    .domain(data.map((d) => d.day.substring(9)));
-    const yScale = d3.scaleLinear()
-    .range([height, 0])
-    .domain([0, d3.max(data, d => d.kilogram > d.calories ? d.kilogram : d.calories+100)]);
+    
     // Create root container where we will append all other chart elements
     const svgEl = d3.select(svgRef.current);
     svgEl.selectAll("*").remove(); // Clear svg content before adding new elements 
     const svg = svgEl
       .append("g")
       .attr("transform", `translate(5 ,${margin.top})`);
+
+    // Create axes
+    const xScale = d3.scaleBand()
+    .range([0, width])
+    .padding(0.1)
+    .domain(data.map((d) => d.day.substring(9)));
+
+    const yScale = d3.scaleLinear()
+    .range([height, 0])
+    .domain([0, d3.max(data, d => d.kilogram > d.calories ? d.kilogram : d.calories+100)]);
+
+    // Add tooltip
+    const div = d3.select("body").append("div")
+    .attr("class", "tooltip")         
+    .style("opacity", 0);
 
    // Add X grid lines with labels
    const xAxis = d3.axisBottom(xScale).tickSize(0);
@@ -97,7 +110,7 @@ function DailyActivityGraph({ data }) {
       .style("position", "relative")
       .style("z-index", 1);
 
-    // Add the bars
+    // Add the calories bars
     svg.selectAll(".bar.calories")
       .data(data)
       .enter().append("path")
@@ -152,7 +165,7 @@ function DailyActivityGraph({ data }) {
 
       });
     
-  }, [data, div, width, height, margin.left, margin.right, margin.top]); // Redraw chart if data changes
+  }, [data, width, height, margin.left, margin.right, margin.top]); // Redraw chart if data changes
  
   return (
     <GraphicContainer id="daily-activity-graph" $bgColor={backgroundColor} $width={containerWidth}>

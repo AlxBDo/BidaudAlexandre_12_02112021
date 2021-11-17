@@ -2,17 +2,24 @@ import React from "react";
 import PropTypes from "prop-types"
 import * as d3 from "d3";
 
-import chartDimensions from "../../utils/chartDimensions";
 import {GraphicContainer}  from "../../utils/style";
 
- 
-const ScoreChart = ({ data }) => {
+
+/**
+ * component for displaying user score chart
+ * @component
+ * @param {number} data - user score in float format 
+ * @example data : 0.17
+ * @returns {object} GraphicContainer - styled component
+ */
+const ScoreChart = ({ data, dimensions }) => {
   const backgroundColor = "rgba(251, 251, 251, 1)"
   const containerWidth = 31
   const svgRef = React.useRef(null);
-  const { width, height, margin } = chartDimensions.calculate((0.9*0.7*0.31), "width", 0.05, 0.05, 0.05, 0.05);
+  const { width, height, margin } = dimensions.calculate((0.9*0.7*0.31), "width", 0.05, 0.05, 0.05, 0.05);
  
   React.useEffect(() => {
+
     // Create root container where we will append all other chart elements
     const svgEl = d3.select(svgRef.current);
     svgEl.selectAll("*").remove(); // Clear svg content before adding new elements 
@@ -22,17 +29,23 @@ const ScoreChart = ({ data }) => {
     .attr("transform", "translate(" 
         + width *0.47 + "," 
         + height / 2  + ")")
+    
+    // data preparation
     let score = data * 100
     const colors = [backgroundColor, "rgba(255, 0, 0, 1)"]
     var dataset = {things: [(100-score), score],};
+
+    // d3 configuration
     var radius =( Math.min(width, height) *0.5);
     var pie = d3.pie().sort(null);
     var arc = d3.arc()
         .innerRadius(radius - 40)
         .outerRadius(radius - 50)
         .cornerRadius(50);
+
     // add title
     svg.append("text").text("Score").attr("transform", `translate(${-width*0.33}, ${-height*0.35})`)
+
     // add path and draw chart arcs
     svg.append("circle")
     .attr("cx",0)
@@ -45,6 +58,7 @@ const ScoreChart = ({ data }) => {
         .attr("transform", `translate(0, 15)`)
         .attr("fill", function(d, i) { return colors[i]; })
         .attr("d", arc);
+        
     // add text
     let text = svg.append("text").attr("text-anchor", "middle")
     text.append("tspan")

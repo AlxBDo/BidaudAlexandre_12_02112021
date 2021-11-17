@@ -2,20 +2,21 @@ import React from "react";
 import * as d3 from "d3";
 import PropTypes from "prop-types"
 
-import chartDimensions from "../../utils/chartDimensions";
 import {GraphicContainer}  from "../../utils/style";
 import addTooltip from "./addTooltip";
 
 
 /**
  * generate user's average sessions chart
+ * @component
  * @param {array} data - array of objects with day and sessionLength attributes
+ * @returns {object} GraphicContainer - styled component
  */
-function AverageSessionsChart({ data }){
+function AverageSessionsChart({ data, dimensions }){
   const backgroundColor = "#F00"
   const containerWidth = 31
   const svgRef = React.useRef(null);
-  const { width, height, margin } = chartDimensions.calculate((0.9*0.7*0.31), "width");
+  const { width, height, margin } = dimensions.calculate((0.9*0.7*0.31), "width");
  
   React.useEffect(() => {
     const chartTitle = ["Durée moyenne des", "sessions"]

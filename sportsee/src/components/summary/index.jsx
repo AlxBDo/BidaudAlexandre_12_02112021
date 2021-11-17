@@ -6,6 +6,13 @@ import glucidIcon from "../../assets/glucides_icon.png"
 import lipidIcon from "../../assets/lipides_icon.png"
 import proteinIcon from "../../assets/proteines_icon.png"
 
+
+/**
+ * display summary item
+ * @param {string} name - summary item name
+ * @param {number} value - summary item value
+ * @returns {object} summary item dom element
+ */
 function summaryItem(name, value){
     let unit = "g"
     let srcImg
@@ -36,7 +43,16 @@ function summaryItem(name, value){
     )
 }
 
-
+/**
+ * component for displaying summary of user indicators
+ * @component
+ * @param {object} props 
+ * @param {number} props.calorie - user calorie count
+ * @param {number} props.protein - user protein count
+ * @param {number} props.glucid - user glucid count
+ * @param {number} props.lipid - user lipid count
+ * @returns {object} section contain summary
+ */
 function Summary(props){
     const {calorie, glucid, lipid, protein} = props
     return(

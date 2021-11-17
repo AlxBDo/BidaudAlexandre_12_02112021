@@ -1,3 +1,11 @@
+/**
+ * draw rounded top edges at the bars of the graph
+ * @param {object} x - d3 object 
+ * @param {object} y - d3 object
+ * @param {number} height - svg height 
+ * @param {number} width - svg width 
+ * @returns {string} coordinates of the drawn element
+ */
 export const topRoundedColumn = function(x, y, height, width) {
     const radius = width / 2;
     const heightBeforeArc = height - radius;

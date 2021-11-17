@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -28,30 +27,32 @@ const NavStyled = styled.nav`
     justify-content: space-around;
 `
 
-class Header extends Component {
-
-    render(){
-        return(
-            <HeaderStyled>
-                <img src={LogoImg} alt="SportSee" />
-                <NavStyled>
-                    <LiNav>
-                        <LinkNav to="/">Accueil</LinkNav>
-                    </LiNav>
-                    <LiNav>
-                        <LinkNav to="/Profil">Profil</LinkNav>
-                    </LiNav>
-                    <LiNav>
-                        <LinkNav to="/Settings">Réglage</LinkNav>
-                    </LiNav>
-                    <LiNav>
-                        <LinkNav to="/Community">Communauté</LinkNav>
-                    </LiNav>
-                </NavStyled>
-            </HeaderStyled>
-        )
-    }
-
+/**
+ * Component for displaying header page. 
+ * header containt logo and navigation
+ * @component
+ * @returns {object} HeaderStyled - styled component
+ */
+function Header(){
+    return(
+        <HeaderStyled>
+            <img src={LogoImg} alt="SportSee" />
+            <NavStyled>
+                <LiNav>
+                    <LinkNav to="/">Accueil</LinkNav>
+                </LiNav>
+                <LiNav>
+                    <LinkNav to="/Profil">Profil</LinkNav>
+                </LiNav>
+                <LiNav>
+                    <LinkNav to="/Settings">Réglage</LinkNav>
+                </LiNav>
+                <LiNav>
+                    <LinkNav to="/Community">Communauté</LinkNav>
+                </LiNav>
+            </NavStyled>
+        </HeaderStyled>
+    )
 }
 
 export default Header

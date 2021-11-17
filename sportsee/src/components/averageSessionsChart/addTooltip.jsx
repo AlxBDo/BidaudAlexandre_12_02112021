@@ -1,5 +1,10 @@
 import PropTypes from "prop-types"
 
+/**
+ * create tooltip to display curve informations
+ * @param {object} svg - svg dom object 
+ * @returns {object} tooltip svg group
+ */
 function addTooltip(svg) {
     // Création d'un groupe qui contiendra tout le tooltip plus le cercle de suivi
     var tooltip = svg.append("g")

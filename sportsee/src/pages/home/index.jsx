@@ -2,6 +2,11 @@ import { Link } from "react-router-dom"
 
 import { USER_MAIN_DATA } from "../../datas/data"
 
+/**
+ * Component for displaying home page main element
+ * @component
+ * @returns {object} main dom object
+ */
 function Home() {
     return(
         <main>
