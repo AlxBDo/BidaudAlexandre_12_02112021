@@ -1,3 +1,5 @@
+/** @author Alexandre Bidaud */
+
 import { useParams } from 'react-router-dom'
 
 import user from "../../utils/user.js"

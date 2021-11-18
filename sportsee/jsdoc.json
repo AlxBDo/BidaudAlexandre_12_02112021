@@ -1,0 +1,49 @@
+{
+    "source": {
+        "include": [
+            "src/components/averageSessionsChart", 
+            "src/components/dailyActivityGraph",  
+            "src/components/header", 
+            "src/components/pageMenu", 
+            "src/components/performancesChart", 
+            "src/components/scoreChart", 
+            "src/components/summary",
+            "src/pages/error",
+            "src/pages/home",
+            "src/pages/profil", 
+            "src/utils"
+        ],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(node_modules/|docs)"
+    },
+    "plugins": ["plugins/markdown"],
+    "templates": {
+        "cleverlinks":true,
+        "monospacelinks": true,
+        "default": {
+            "useLongnameInNav": true
+        }
+    },
+    "opts": {
+        "recurse": true,
+        "destination": "./docs/",
+        "template": "node_modules/docdash"
+    },
+    "docdash": {
+        "static": true,
+        "sort": true,
+        "search": true,
+        "collapse": true,
+        "typedefs": true,
+        "removeQuotes": "none",
+        "scripts": [],
+        "menu":{
+            "Github repo": {
+                "href":"https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git",
+                "target":"_blank",
+                "class":"menu-item",
+                "id":"repository"
+            }
+        }
+    }
+}

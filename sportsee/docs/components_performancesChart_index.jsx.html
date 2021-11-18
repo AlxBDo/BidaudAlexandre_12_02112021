@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>components/performancesChart/index.jsx - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="user.html">user</a><ul class='methods'><li data-type='method' style='display: none;'><a href="user.html#getActivity">getActivity</a></li><li data-type='method' style='display: none;'><a href="user.html#getAverageSessions">getAverageSessions</a></li><li data-type='method' style='display: none;'><a href="user.html#getCalorieCount">getCalorieCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getCarbohydrateCount">getCarbohydrateCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getData">getData</a></li><li data-type='method' style='display: none;'><a href="user.html#getFirstName">getFirstName</a></li><li data-type='method' style='display: none;'><a href="user.html#getLipidCount">getLipidCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getPerformances">getPerformances</a></li><li data-type='method' style='display: none;'><a href="user.html#getProteinCount">getProteinCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getScore">getScore</a></li><li data-type='method' style='display: none;'><a href="user.html#setId">setId</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addTooltip">addTooltip</a></li><li><a href="global.html#AverageSessionsChart">AverageSessionsChart</a></li><li><a href="global.html#chartDimensions">chartDimensions</a></li><li><a href="global.html#DailyActivityGraph">DailyActivityGraph</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#linkGenerator">linkGenerator</a></li><li><a href="global.html#PageMenu">PageMenu</a></li><li><a href="global.html#PerformancesChart">PerformancesChart</a></li><li><a href="global.html#Profil">Profil</a></li><li><a href="global.html#ScoreChart">ScoreChart</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#summaryItem">summaryItem</a></li><li><a href="global.html#topRoundedColumn">topRoundedColumn</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">components/performancesChart/index.jsx</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import PropTypes from "prop-types"
+import * as d3 from "d3";
+
+import {GraphicContainer}  from "../../utils/style";
+
+/**
+ * component for displaying user performances chart
+ * @component
+ * @param {object} data - object containing the data needed for the performances chart
+ * @example data : { userId: &lt;integer>, kind : &lt;object>, data : &lt;array> }
+ * @example data.kind : { 1: &lt;string> 'cardio', 2: &lt;string> 'energy', 3: &lt;string> 'endurance', 4: &lt;string> 'strength', 5: &lt;string> 'speed', 6: &lt;string> 'intensity' }
+ * @example data.data : [ { value: &lt;integer>, kind : &lt;integer> }, ... ]
+ * @returns {object} GraphicContainer - styled component
+ */
+const PerformancesChart = ({ data, dimensions }) => {
+  const backgroundColor = "rgba(40, 45, 48, 1)"
+  const containerWidth = 31
+  const svgRef = React.useRef(null);
+  const { width, height, margin } = dimensions.calculate((0.9*0.7*0.31), "width", 0.05, 0.05, 0.05, 0.05);
+ 
+  React.useEffect(() => {
+
+    // Create root container where we will append all other chart elements
+    const svgEl = d3.select(svgRef.current);
+    svgEl.selectAll("*").remove(); // Clear svg content before adding new elements 
+    const svg = svgEl
+      .append("g")
+      .attr("transform", `translate(${width/4},${height/4})`);
+      
+    // Radius of radar chart
+    const r = (width*0.9)/4
+    
+
+    // data preparation
+
+    let frenchDimensions = ["Cardio", "Energie", "Endurance", "Force", "Vitesse", "Intensité"]
+    const dimensions = Object.values(data.kind).map((d, i) => frenchDimensions[i]).reverse()
+ 
+    let values = data.data.reduce((a, k) => {
+      a.push(k.value)
+      return a
+    }, []).sort((a, b) => {return b - a})
+
+    const tricksValues = (maxValue) => { 
+      let ticksArray = []
+      for(let i = 0; i &lt; 7 ; i++){ ticksArray.push(parseInt((maxValue/6) * i)) }
+      return ticksArray
+    }
+
+    let performancesValues = data.data.reduce((a, k) => Object.assign(a, {[dimensions[(k.kind - 1)]]: k.value}), {})
+
+
+    // Line generator for radial lines
+    const radialLine = d3.lineRadial()
+    
+    // Mapping 0 - 255 to 0 - r
+    const yScale = d3.scaleLinear()
+      .range([0, r])
+      .domain([0, values[0]])
+    
+    // customized tricks
+    const ticks = tricksValues(values[0])
+
+    // axis
+    dimensions.forEach((dimension, i) => {
+    const g = svg.append('g')
+      .attr('transform', `translate(${r}, ${r}) rotate(${i * 60})`)
+      .attr('stroke-width', 0)
+
+    // Combining a left oriented axis with a right oriented axis
+    // to make an axis with tick marks on both side
+    g.append('g')
+      .call(d3.axisLeft(yScale).tickFormat('').tickValues(ticks))
+    g.append('g')
+      .call(d3.axisRight(yScale).tickFormat('').tickValues(ticks))
+
+    // Add a text label for each axis
+    g.append('text')
+      .text(dimension)
+      .style("font-size", "small")
+      .attr("fill", "white")
+      .attr("class", "categories")
+      .attr('text-anchor', i === 0 || i === 3 ? 'middle' : i &lt; 3 ? "start" : "end")
+      .attr('transform', `translate(0, -${r + 10}) rotate(${i * -60})`)
+    })
+
+    // Line for the base stats of Snorlax
+    svg.append('g')
+      .selectAll('path')
+      .data([performancesValues])
+      .enter()
+      .append('path')
+        .attr('d', radialLine([
+            performancesValues["Intensité"],
+            performancesValues["Vitesse"],
+            performancesValues["Force"],
+            performancesValues["Endurance"],
+            performancesValues["Energie"],
+            performancesValues["Cardio"]
+          ].map((v, i) => [Math.PI * 2 * i / 6 /* radian */, yScale(v) /* distance from the origin */])) 
+        )
+        .attr('transform', `translate(${r}, ${r})`)
+        .attr('fill', 'rgba(255, 1, 1, 0.7)');
+    
+    // Gird lines for references
+    svg.append('g')
+      .selectAll('path')
+      .data(ticks)
+      .enter()
+      .append('path')
+        .attr('d', d => radialLine(ticks.map((v, i) => [Math.PI * 2 * i / 6, yScale(d)])))
+        .attr('transform', `translate(${r}, ${r})`)
+        .attr('stroke', 'white')
+        .attr('opacity', 0.5)
+        .attr('fill', 'transparent')
+
+  }, [data, margin.left, margin.right, margin.top, margin.bottom, height, width]); // Redraw chart if data changes
+ 
+  return (
+    &lt;GraphicContainer id="performances" $bgColor={backgroundColor} $width={containerWidth}>
+        &lt;svg ref={svgRef} width={width} height={height} />
+    &lt;/GraphicContainer>
+  )
+};
+
+PerformancesChart.propTypes = {
+  data : PropTypes.object.isRequired
+}
+ 
+export default PerformancesChart;</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Nov 18 2021 10:08:44 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>utils/user.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="user.html">user</a><ul class='methods'><li data-type='method' style='display: none;'><a href="user.html#getActivity">getActivity</a></li><li data-type='method' style='display: none;'><a href="user.html#getAverageSessions">getAverageSessions</a></li><li data-type='method' style='display: none;'><a href="user.html#getCalorieCount">getCalorieCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getCarbohydrateCount">getCarbohydrateCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getData">getData</a></li><li data-type='method' style='display: none;'><a href="user.html#getFirstName">getFirstName</a></li><li data-type='method' style='display: none;'><a href="user.html#getLipidCount">getLipidCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getPerformances">getPerformances</a></li><li data-type='method' style='display: none;'><a href="user.html#getProteinCount">getProteinCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getScore">getScore</a></li><li data-type='method' style='display: none;'><a href="user.html#setId">setId</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addTooltip">addTooltip</a></li><li><a href="global.html#AverageSessionsChart">AverageSessionsChart</a></li><li><a href="global.html#chartDimensions">chartDimensions</a></li><li><a href="global.html#DailyActivityGraph">DailyActivityGraph</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#linkGenerator">linkGenerator</a></li><li><a href="global.html#PageMenu">PageMenu</a></li><li><a href="global.html#PerformancesChart">PerformancesChart</a></li><li><a href="global.html#Profil">Profil</a></li><li><a href="global.html#ScoreChart">ScoreChart</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#summaryItem">summaryItem</a></li><li><a href="global.html#topRoundedColumn">topRoundedColumn</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">utils/user.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import PropTypes from "prop-types"
+
+import { USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_MAIN_DATA, USER_PERFORMANCE } from "../datas/data"
+
+//EcmaScript 6 : POO (getter, setter)
+// user object class
+class user {
+
+    activity
+    averageSessions
+    id
+    keyData
+    mainData
+    performances
+    todayScore
+
+    /**
+     * class representing an user 
+     * @class
+     * @classdesc retrieve and store user information
+     * 
+     * @constructor
+     * @param {number} id - user id 
+     */
+    constructor(id){
+        if(this.setId(id)){ this.getData() }
+    }
+
+    /**
+     * provides user activity
+     * @method
+     * @memberof user
+     * @returns {object} data in JSON format
+     * @example return { day: '2020-07-01', kilogram: 80, calories: 240 }
+     */
+    getActivity(){ return this.activity }
+
+    /**
+     * provides user average sessions
+     * @method
+     * @memberof user
+     * @returns {object} session - data in JSON format
+     * @example return { day: 1, sessionLength: 30 }
+     */
+    getAverageSessions() { return this.averageSessions }
+
+    /**
+     * provides user calorie count
+     * @method
+     * @memberof user
+     * @returns {number} calorie count
+     */
+    getCalorieCount(){ return this.keyData.calorieCount }
+
+    /**
+     * provides user carbohydrate count
+     * @method
+     * @memberof user
+     * @returns {number} carbohydrate count
+     */
+    getCarbohydrateCount(){ return this.keyData.carbohydrateCount }
+
+    /**
+     * provides user performances
+     * @method
+     * @memberof user
+     * @returns {object} performances - data in JSON format
+     * @returns {number} performances.id - user id
+     * @returns {object} performances.kind - { 1: 'cardio, 2: 'energy', 3: 'endurance', 4: 'strength', 5: 'speed', 6: 'intensity'}
+     * @returns {array} performances.data - [ {value: 80, kind: 1}, ... ] 
+     */
+    getPerformances() { return this.performances }
+
+    /**
+     * provides user score
+     * @method
+     * @memberof user
+     * @returns {number} - score
+     * @example return 0.25
+     */
+    getScore() { return this.todayScore }
+
+    /**
+     * retrieves and stores user data
+     * @method
+     * @memberof user
+     */
+    getData(){
+        this.activity = USER_ACTIVITY.filter(session => session.userId === this.id)[0].sessions
+        this.averageSessions = USER_AVERAGE_SESSIONS.filter(session => session.userId === this.id)[0].sessions 
+        this.keyData = USER_MAIN_DATA.filter(user => user.id === this.id)[0].keyData
+        this.mainData = USER_MAIN_DATA.filter(user => user.id === this.id)[0].userInfos
+        this.performances = USER_PERFORMANCE.filter(perf => perf.userId === this.id)[0] 
+        this.todayScore = USER_MAIN_DATA.filter(user => user.id === this.id)[0].todayScore
+    }
+
+    /**
+     * provides user first name
+     * @method
+     * @memberof user
+     * @returns {string} user first name
+     */
+    getFirstName(){ return this.mainData.firstName }
+
+    /**
+     * provides user lipid count
+     * @method
+     * @memberof user
+     * @returns {number} lipid count
+     */
+    getLipidCount(){ return this.keyData.lipidCount }
+
+    /**
+     * provides user protein count
+     * @method
+     * @memberof user
+     * @returns {number} protein count
+     */
+    getProteinCount(){ return this.keyData.proteinCount }
+
+
+    /**
+     * modify the value of the id attribute
+     * @method
+     * @memberof user
+     * @param {number} id - user id 
+     * @returns {boolean} true : paramater is in correct format
+     */
+    setId(id){ 
+        if(!isNaN(id)){ 
+            this.id = parseInt(id) 
+            return true
+        } else { 
+            console.error("ID USER must be number !")
+            return false
+        }
+    }
+
+}
+
+user.PropTypes = {
+    id : PropTypes.number.isRequired
+}
+
+export default user</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Nov 18 2021 10:08:44 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

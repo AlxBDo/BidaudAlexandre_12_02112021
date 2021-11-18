@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>components/summary/index.jsx - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="user.html">user</a><ul class='methods'><li data-type='method' style='display: none;'><a href="user.html#getActivity">getActivity</a></li><li data-type='method' style='display: none;'><a href="user.html#getAverageSessions">getAverageSessions</a></li><li data-type='method' style='display: none;'><a href="user.html#getCalorieCount">getCalorieCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getCarbohydrateCount">getCarbohydrateCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getData">getData</a></li><li data-type='method' style='display: none;'><a href="user.html#getFirstName">getFirstName</a></li><li data-type='method' style='display: none;'><a href="user.html#getLipidCount">getLipidCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getPerformances">getPerformances</a></li><li data-type='method' style='display: none;'><a href="user.html#getProteinCount">getProteinCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getScore">getScore</a></li><li data-type='method' style='display: none;'><a href="user.html#setId">setId</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addTooltip">addTooltip</a></li><li><a href="global.html#AverageSessionsChart">AverageSessionsChart</a></li><li><a href="global.html#chartDimensions">chartDimensions</a></li><li><a href="global.html#DailyActivityGraph">DailyActivityGraph</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#linkGenerator">linkGenerator</a></li><li><a href="global.html#PageMenu">PageMenu</a></li><li><a href="global.html#PerformancesChart">PerformancesChart</a></li><li><a href="global.html#Profil">Profil</a></li><li><a href="global.html#ScoreChart">ScoreChart</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#summaryItem">summaryItem</a></li><li><a href="global.html#topRoundedColumn">topRoundedColumn</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">components/summary/index.jsx</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import PropTypes from "prop-types"
+
+import calorieIcon from "../../assets/calories_icon.png"
+import glucidIcon from "../../assets/glucides_icon.png"
+import lipidIcon from "../../assets/lipides_icon.png"
+import proteinIcon from "../../assets/proteines_icon.png"
+
+
+/**
+ * display summary item
+ * @param {string} name - summary item name
+ * @param {number} value - summary item value
+ * @returns {object} summary item dom element
+ */
+function summaryItem(name, value){
+    let unit = "g"
+    let srcImg
+    switch(name){
+        case "Calories" :
+            srcImg = calorieIcon
+            unit = "kCal"
+            value = value.toFixed(3)
+            break
+        case "Glucides" :
+            srcImg = glucidIcon
+            break
+        case "Lipides" :
+            srcImg = lipidIcon
+            break
+        default :
+            srcImg = proteinIcon
+            break   
+    }
+    return(
+        &lt;div id={name.toLowerCase()} className="summaryItem">
+            &lt;div>&lt;img src={srcImg} alt="" />&lt;/div>
+            &lt;div>
+                &lt;p className="summary-item-value">{value}{unit}&lt;/p>
+                &lt;p>{name}&lt;/p>
+            &lt;/div>
+        &lt;/div>
+    )
+}
+
+/**
+ * component for displaying summary of user indicators
+ * @component
+ * @param {object} props 
+ * @param {number} props.calorie - user calorie count
+ * @param {number} props.protein - user protein count
+ * @param {number} props.glucid - user glucid count
+ * @param {number} props.lipid - user lipid count
+ * @returns {object} section contain summary
+ */
+function Summary(props){
+    const {calorie, glucid, lipid, protein} = props
+    return(
+        &lt;section id="summary">
+            {summaryItem("Calories", calorie/1000)}
+            {summaryItem("Proteines", protein)}
+            {summaryItem("Glucides", glucid)}
+            {summaryItem("Lipides", lipid)}
+        &lt;/section>
+    )
+}
+
+summaryItem.propTypes = {
+  name : PropTypes.string.isRequired,
+  value : PropTypes.number.isRequired
+}
+
+Summary.propTypes = {
+    calorie : PropTypes.number.isRequired, 
+    protein : PropTypes.number.isRequired, 
+    glucid : PropTypes.number.isRequired, 
+    lipid : PropTypes.number.isRequired
+}
+
+export default Summary</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Nov 18 2021 10:08:44 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>
