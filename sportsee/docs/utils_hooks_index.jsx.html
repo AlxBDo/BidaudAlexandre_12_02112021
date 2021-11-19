@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>components/pageMenu/linkGenerator.jsx - Documentation</title>
+    <title>utils/hooks/index.jsx - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -34,7 +34,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/pageMenu/linkGenerator.jsx</h1>
+    <h1 class="page-title">utils/hooks/index.jsx</h1>
     
 
     
@@ -44,81 +44,59 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Link } from "react-router-dom";
-import styled from "styled-components";
+            <pre class="prettyprint source linenums"><code>import { useState, useEffect } from 'react'
 
-import BodyBuldingImg from '../../assets/bodybulding.png';
-import CyclingImg from '../../assets/cycling.png';
-import RelaxationImg from '../../assets/relaxation.png';
-import swimingImg from '../../assets/swiming.png';
-
-
-const MenuLink = styled(Link)`
-    ${(props) => (`background-image: url(${props.$urlBg});`) }
-    width: 64px;
-    height: 64px;
-    display: block;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-color: white;
-    margin: 25% auto;
-    border-radius: 5px;
-`
+const axios = require('axios').default;
 
 /**
- * generate pageMenu links
+ * Retrieves user information from API
+ * @param {integer} userId - user id 
+ * @returns {object} {isLoading, data, error} contain data request 
+ * @returns {boolean} objectReturn.isLoading - data is loading ?
+ * @returns {object} objectReturn.data = { mainData: &lt;object>, activity: &lt;array>, sessions: &lt;array>, keyData: &lt;object>, performances: &lt;object>, score: &lt;number>}
+ * @returns {boolean} objectReturn.error - An error has occurred ?
  */
-export const linkGenerator = {
+function UserInformationCollector(userId) {
+  const [data, setData] = useState({})
+  const [isLoading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
-    BodyBuldingSrcLink : "/Bodybulding",
-    CyclingSrcLink : "/Cycling",
-    RelaxationSrcLink : "/Relaxation",
-    swimingSrcLink : "/swiming",
-
-    /**
-     * complete and generate MenuLink
-     * @param {string} srcLink - route path
-     * @returns {object} MenuLink - styled component
-     */
-    getLink(srcLink){
-        let nameLink = "Musculation"
-        let bgUrl = BodyBuldingImg
-        switch(srcLink){
-            case this.BodyBuldingSrcLink :
-                break
-            case this.CyclingSrcLink :
-                nameLink = "Cyclisme"
-                bgUrl = CyclingImg
-                break
-            case this.RelaxationSrcLink :
-                nameLink = "Relaxation"
-                bgUrl = RelaxationImg
-                break
-            case this.swimingSrcLink :
-                nameLink = "Natation"
-                bgUrl = swimingImg
-                break
-            default :
-                console.error("Source link isn't defined in PageMenu Link !")
-                break
-        }
-        return(&lt;MenuLink to={srcLink} alt={nameLink} $urlBg={bgUrl}>&lt;/MenuLink>)
-    },
-
-    /**
-     * generate all necessary MenuLink to the PageMenu
-     * @returns {array} contain MenuLink
-     */
-    getLinks(){
-        return [
-            this.getLink(this.BodyBuldingSrcLink), 
-            this.getLink(this.CyclingSrcLink), 
-            this.getLink(this.RelaxationSrcLink), 
-            this.getLink(this.swimingSrcLink)
+  useEffect(() => {
+    if (!userId){ 
+        console.error("User ID is missing to perform the request !")
+        return setError(true) 
+    } else { 
+        setError(false) 
+        let dataRequest = [
+            axios.get(`http://localhost:3000/user/${userId}`), 
+            axios.get(`http://localhost:3000/user/${userId}/activity`), 
+            axios.get(`http://localhost:3000/user/${userId}/average-sessions`),
+            axios.get(`http://localhost:3000/user/${userId}/key-data`), 
+            axios.get(`http://localhost:3000/user/${userId}/performance`), 
+            axios.get(`http://localhost:3000/user/${userId}/today-score`) 
         ] 
+        Promise.all(dataRequest)
+            .then((response) => {
+                setData({
+                    mainData: response[0].data.data.userInfos, 
+                    activity: response[1].data.data.sessions,
+                    sessions: response[2].data.data.sessions,
+                    keyData: response[3].data.data,
+                    performances: response[4].data.data,
+                    score: response[5].data.data
+                })
+                setLoading(false)
+            })
+            .catch((error) => {
+                setError(true)
+                console.error(error);
+            });
     }
-    
-}</code></pre>
+  }, [userId])
+  return { isLoading, data, error }
+}
+
+export default UserInformationCollector</code></pre>
         </article>
     </section>
 

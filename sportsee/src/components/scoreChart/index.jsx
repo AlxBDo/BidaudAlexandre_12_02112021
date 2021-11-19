@@ -36,10 +36,10 @@ const ScoreChart = ({ data, dimensions }) => {
     var dataset = {things: [(100-score), score],};
 
     // d3 configuration
-    var radius =( Math.min(width, height) *0.5);
+    var radius = width < 200 ? width * 0.6 : width * 0.45;
     var pie = d3.pie().sort(null);
     var arc = d3.arc()
-        .innerRadius(radius - 40)
+        .innerRadius(radius - 42)
         .outerRadius(radius - 50)
         .cornerRadius(50);
 
@@ -63,19 +63,19 @@ const ScoreChart = ({ data, dimensions }) => {
     let text = svg.append("text").attr("text-anchor", "middle")
     text.append("tspan")
     .attr("x", 0)
-    .attr("y", -2.5)
+    .attr("y", -0.5)
     .style("font-size", `${width/10}px`)
     .style("font-weight", "bold")
     .text(`${score}%`)
     text.append("tspan")
     .attr("x", 0)
     .style("font-size", `${(width/10)*0.75}px`)
-    .attr("dy", "1.95em")
+    .attr("dy", "1.75em")
     .attr("fill", "grey")
     .text(`de votre`)
     text.append("tspan")
     .attr("x", 0)
-    .attr("dy", "1.5em")
+    .attr("dy", "1.25em")
     .style("font-size", `${(width/10)*0.75}px`)
     .attr("fill", "grey")
     .text(`objectif`)

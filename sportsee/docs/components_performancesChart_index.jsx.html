@@ -29,7 +29,7 @@
     
     <input type="text" id="nav-search" placeholder="Search" />
     
-    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="user.html">user</a><ul class='methods'><li data-type='method' style='display: none;'><a href="user.html#getActivity">getActivity</a></li><li data-type='method' style='display: none;'><a href="user.html#getAverageSessions">getAverageSessions</a></li><li data-type='method' style='display: none;'><a href="user.html#getCalorieCount">getCalorieCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getCarbohydrateCount">getCarbohydrateCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getData">getData</a></li><li data-type='method' style='display: none;'><a href="user.html#getFirstName">getFirstName</a></li><li data-type='method' style='display: none;'><a href="user.html#getLipidCount">getLipidCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getPerformances">getPerformances</a></li><li data-type='method' style='display: none;'><a href="user.html#getProteinCount">getProteinCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getScore">getScore</a></li><li data-type='method' style='display: none;'><a href="user.html#setId">setId</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addTooltip">addTooltip</a></li><li><a href="global.html#AverageSessionsChart">AverageSessionsChart</a></li><li><a href="global.html#chartDimensions">chartDimensions</a></li><li><a href="global.html#DailyActivityGraph">DailyActivityGraph</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#linkGenerator">linkGenerator</a></li><li><a href="global.html#PageMenu">PageMenu</a></li><li><a href="global.html#PerformancesChart">PerformancesChart</a></li><li><a href="global.html#Profil">Profil</a></li><li><a href="global.html#ScoreChart">ScoreChart</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#summaryItem">summaryItem</a></li><li><a href="global.html#topRoundedColumn">topRoundedColumn</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="user.html">user</a><ul class='methods'><li data-type='method' style='display: none;'><a href="user.html#getActivity">getActivity</a></li><li data-type='method' style='display: none;'><a href="user.html#getAverageSessions">getAverageSessions</a></li><li data-type='method' style='display: none;'><a href="user.html#getCalorieCount">getCalorieCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getCarbohydrateCount">getCarbohydrateCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getFirstName">getFirstName</a></li><li data-type='method' style='display: none;'><a href="user.html#getLipidCount">getLipidCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getPerformances">getPerformances</a></li><li data-type='method' style='display: none;'><a href="user.html#getProteinCount">getProteinCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getScore">getScore</a></li><li data-type='method' style='display: none;'><a href="user.html#setData">setData</a></li><li data-type='method' style='display: none;'><a href="user.html#setId">setId</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addTooltip">addTooltip</a></li><li><a href="global.html#AverageSessionsChart">AverageSessionsChart</a></li><li><a href="global.html#chartDimensions">chartDimensions</a></li><li><a href="global.html#DailyActivityGraph">DailyActivityGraph</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#linkGenerator">linkGenerator</a></li><li><a href="global.html#PageMenu">PageMenu</a></li><li><a href="global.html#PerformancesChart">PerformancesChart</a></li><li><a href="global.html#Profil">Profil</a></li><li><a href="global.html#ScoreChart">ScoreChart</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#summaryItem">summaryItem</a></li><li><a href="global.html#topRoundedColumn">topRoundedColumn</a></li><li><a href="global.html#UserInformationCollector">UserInformationCollector</a></li></ul>
 </nav>
 
 <div id="main">
@@ -63,7 +63,7 @@ const PerformancesChart = ({ data, dimensions }) => {
   const backgroundColor = "rgba(40, 45, 48, 1)"
   const containerWidth = 31
   const svgRef = React.useRef(null);
-  const { width, height, margin } = dimensions.calculate((0.9*0.7*0.31), "width", 0.05, 0.05, 0.05, 0.05);
+  const { width, height, margin } = dimensions.calculate((0.9*0.7*0.31), "width", 0.01, 0.01, 0.01, 0.01);
  
   React.useEffect(() => {
 
@@ -72,10 +72,10 @@ const PerformancesChart = ({ data, dimensions }) => {
     svgEl.selectAll("*").remove(); // Clear svg content before adding new elements 
     const svg = svgEl
       .append("g")
-      .attr("transform", `translate(${width/4},${height/4})`);
+      .attr("transform", `translate(${(width*0.9)/4},${height/4})`);
       
     // Radius of radar chart
-    const r = (width*0.9)/4
+    const r = (width)/4
     
 
     // data preparation
@@ -110,25 +110,25 @@ const PerformancesChart = ({ data, dimensions }) => {
 
     // axis
     dimensions.forEach((dimension, i) => {
-    const g = svg.append('g')
-      .attr('transform', `translate(${r}, ${r}) rotate(${i * 60})`)
-      .attr('stroke-width', 0)
+      const g = svg.append('g')
+        .attr('transform', `translate(${r}, ${r}) rotate(${i * 60})`)
+        .attr('stroke-width', 0)
 
-    // Combining a left oriented axis with a right oriented axis
-    // to make an axis with tick marks on both side
-    g.append('g')
-      .call(d3.axisLeft(yScale).tickFormat('').tickValues(ticks))
-    g.append('g')
-      .call(d3.axisRight(yScale).tickFormat('').tickValues(ticks))
+      // Combining a left oriented axis with a right oriented axis
+      // to make an axis with tick marks on both side
+      g.append('g')
+        .call(d3.axisLeft(yScale).tickFormat('').tickValues(ticks))
+      g.append('g')
+        .call(d3.axisRight(yScale).tickFormat('').tickValues(ticks))
 
-    // Add a text label for each axis
-    g.append('text')
-      .text(dimension)
-      .style("font-size", "small")
-      .attr("fill", "white")
-      .attr("class", "categories")
-      .attr('text-anchor', i === 0 || i === 3 ? 'middle' : i &lt; 3 ? "start" : "end")
-      .attr('transform', `translate(0, -${r + 10}) rotate(${i * -60})`)
+      // Add a text label for each axis
+      g.append('text')
+        .text(dimension)
+        .style("font-size", width &lt; 200 ? "x-small" : "small")
+        .attr("fill", "white")
+        .attr("class", "categories")
+        .attr('text-anchor', i === 0 || i === 3 ? 'middle' : i &lt; 3 ? "start" : "end")
+        .attr('transform', `translate(0, -${r + 10}) rotate(${i * -60})`)
     })
 
     // Line for the base stats of Snorlax
@@ -188,7 +188,7 @@ export default PerformancesChart;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Nov 18 2021 10:08:44 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Nov 19 2021 18:01:55 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

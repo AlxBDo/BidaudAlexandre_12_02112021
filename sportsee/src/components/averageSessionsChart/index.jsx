@@ -83,9 +83,9 @@ function AverageSessionsChart({ data, dimensions }){
     svg.append("rect")
     .attr("class", "overlayBackground")
     .attr("width", width)
-    .attr("height", height+50)
+    .attr("height", height+5)
     .attr("opacity", 0.15)
-    .attr("y", -50)
+    .attr("y", 0)
 
     const tooltip = addTooltip(svg)
     
@@ -94,6 +94,7 @@ function AverageSessionsChart({ data, dimensions }){
     .attr("width", width)
     .attr("height", height)
     .attr("fill", "transparent")
+    .style("overflow", "hidden")
     .on("mouseover", function(event) { 
         tooltip.style("display", null);
     })

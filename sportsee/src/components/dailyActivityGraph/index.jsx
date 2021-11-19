@@ -25,7 +25,9 @@ function DailyActivityGraph({ data, dimensions }) {
     svgEl.selectAll("*").remove(); // Clear svg content before adding new elements 
     const svg = svgEl
       .append("g")
-      .attr("transform", `translate(5 ,${margin.top})`);
+      .attr("transform", `translate(5 ,${margin.top+margin.bottom})`);
+
+    let chartHeight = height * 0.85
 
     // Create axes
     const xScale = d3.scaleBand()
@@ -34,7 +36,7 @@ function DailyActivityGraph({ data, dimensions }) {
     .domain(data.map((d) => d.day.substring(9)));
 
     const yScale = d3.scaleLinear()
-    .range([height, 0])
+    .range([chartHeight, 0])
     .domain([0, d3.max(data, d => d.kilogram > d.calories ? d.kilogram : d.calories+100)]);
 
     // Add tooltip
@@ -45,7 +47,7 @@ function DailyActivityGraph({ data, dimensions }) {
    // Add X grid lines with labels
    const xAxis = d3.axisBottom(xScale).tickSize(0);
    const xAxisGroup = svg.append("g")
-     .attr("transform", `translate(0, ${height*0.85})`)
+     .attr("transform", `translate(${-width*0.11}, ${chartHeight*0.95})`)
      .attr("color", "#DEDEDE")
      .call(xAxis);
    xAxisGroup.selectAll("text")
@@ -54,15 +56,16 @@ function DailyActivityGraph({ data, dimensions }) {
      .style("font-size", "14px")
      .style("font-weight", "bold")
      .attr("dx", "-2.5em")
-     .attr("dy", "1.5em");
+     .attr("dy", "1.5em")
+     .attr("transform", `translate(${width < 600 ? width*0.11 : width*0.09}, 0)`);
 
     // Add Y grid lines with labels
-    const yAxis = d3.axisRight(yScale).ticks(3).tickSize(-width);
+    const yAxis = d3.axisRight(yScale).ticks(3).tickSize(-width*0.9);
     const yAxisGroup = svg.append("g")
-    .attr("transform", `translate(${width-(margin.right)}, -48)`)
+    .attr("transform", `translate(${width-(margin.right)}, ${-chartHeight*0.05})`)
     .attr("stroke-width", "0").call(yAxis);
     yAxisGroup.selectAll("line")
-      .attr("transform", `translate(0, 0)`)
+      .attr("transform", `translate(${-width*0.08}, 0)`)
       .attr("stroke", "#DEDEDE")
       .attr("stroke-width", "1")
       .style("stroke-dasharray", "2 2");
@@ -72,14 +75,14 @@ function DailyActivityGraph({ data, dimensions }) {
       .data(data)
       .enter().append("path")
       .attr("class", "day")
-      .attr("d", d => `M${xScale(d.day.substring(9))-28.76},${height} ` + // Mx,y Move the pen to(x, y)
-      `v-${height - yScale(d.calories) + 20} ` +  // arc
+      .attr("d", d => `M${xScale(d.day.substring(9))-28.76},${chartHeight} ` + // Mx,y Move the pen to(x, y)
+      `v-${chartHeight - yScale(d.calories) + 20} ` +  // arc
       `a ${width},0 1 1 1 56,0  ` +
-      `v${height- yScale(d.calories)+20} ` +
+      `v${chartHeight- yScale(d.calories)+20} ` +
       `z`)
       .attr("fill", "transparent")
-      .attr("height", d => height - yScale(d.kilogram))
-      .attr("transform", `translate(0, ${-height*0.15})`)
+      .attr("height", d => chartHeight - yScale(d.kilogram))
+      .attr("transform", `translate(0, ${-chartHeight*0.05})`)
       .style("position", "relative")
       .style("z-index", 9)
       .on("mouseover", (event, d) => {
@@ -103,10 +106,10 @@ function DailyActivityGraph({ data, dimensions }) {
       .attr("class", "kilogram")
       .attr("x", d => xScale('kilogram'))
       .attr("y", d => yScale(d.kilogram))
-      .attr("d", d => topRoundedColumn(xScale(d.day.substring(9)), height, height - yScale(d.kilogram), 7))
+      .attr("d", d => topRoundedColumn(xScale(d.day.substring(9)), chartHeight, chartHeight - yScale(d.kilogram), 7))
       .attr("fill", "#282D30")
-      .attr("height", d => height - yScale(d.kilogram))
-      .attr("transform", `translate(0, ${-height*0.15})`)
+      .attr("height", d => chartHeight - yScale(d.kilogram))
+      .attr("transform", `translate(0, ${-chartHeight*0.05})`)
       .style("position", "relative")
       .style("z-index", 1);
 
@@ -117,10 +120,10 @@ function DailyActivityGraph({ data, dimensions }) {
       .attr("class", "calories")
       .attr("x", d => xScale('calories'))
       .attr("y", d => yScale(d.calories))
-      .attr("d", d => topRoundedColumn(xScale(d.day.substring(9)), height, height - yScale(d.calories), 7))
+      .attr("d", d => topRoundedColumn(xScale(d.day.substring(9)), chartHeight, chartHeight - yScale(d.calories), 7))
       .attr("fill", "#E60000")
-      .attr("height", d => height - yScale(d.calories))
-      .attr("transform", `translate(${(margin.left/3)}, ${-height*0.15})`)
+      .attr("height", d => chartHeight - yScale(d.calories))
+      .attr("transform", `translate(${(margin.left/3)}, ${-chartHeight*0.05})`)
       .style("position", "relative")
       .style("z-index", 1);
 
@@ -131,7 +134,7 @@ function DailyActivityGraph({ data, dimensions }) {
     .attr("y", 25)
     .attr("height", 100)
     .attr("width", 150)
-    .style("transform", 'translateY(0px)');
+    .style("transform", `translateY(-${chartHeight*0.025}px)`);
     title.append("text")
     .text("Activité quotidienne")
     .style("font-weight", "bold")
@@ -144,7 +147,8 @@ function DailyActivityGraph({ data, dimensions }) {
     .attr("y", 25)
     .attr("height", 100)
     .attr("width", 100)
-    .style("transform", 'translateY(-30px)');
+    .style("transform", `translate(-${width*0.15}px, -${chartHeight*0.05}px)`)
+    .style("font-size", width>600 ? null : "small");
     legend.selectAll('g').data(["Poids (kg)", "Calories brûlées (kCal)"])
       .enter()
       .append('g')
@@ -165,7 +169,7 @@ function DailyActivityGraph({ data, dimensions }) {
 
       });
     
-  }, [data, width, height, margin.left, margin.right, margin.top]); // Redraw chart if data changes
+  }, [data, width, height, margin]); // Redraw chart if data changes
  
   return (
     <GraphicContainer id="daily-activity-graph" $bgColor={backgroundColor} $width={containerWidth}>

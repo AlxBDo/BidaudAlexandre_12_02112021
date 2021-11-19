@@ -29,7 +29,7 @@
     
     <input type="text" id="nav-search" placeholder="Search" />
     
-    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="user.html">user</a><ul class='methods'><li data-type='method' style='display: none;'><a href="user.html#getActivity">getActivity</a></li><li data-type='method' style='display: none;'><a href="user.html#getAverageSessions">getAverageSessions</a></li><li data-type='method' style='display: none;'><a href="user.html#getCalorieCount">getCalorieCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getCarbohydrateCount">getCarbohydrateCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getData">getData</a></li><li data-type='method' style='display: none;'><a href="user.html#getFirstName">getFirstName</a></li><li data-type='method' style='display: none;'><a href="user.html#getLipidCount">getLipidCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getPerformances">getPerformances</a></li><li data-type='method' style='display: none;'><a href="user.html#getProteinCount">getProteinCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getScore">getScore</a></li><li data-type='method' style='display: none;'><a href="user.html#setId">setId</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addTooltip">addTooltip</a></li><li><a href="global.html#AverageSessionsChart">AverageSessionsChart</a></li><li><a href="global.html#chartDimensions">chartDimensions</a></li><li><a href="global.html#DailyActivityGraph">DailyActivityGraph</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#linkGenerator">linkGenerator</a></li><li><a href="global.html#PageMenu">PageMenu</a></li><li><a href="global.html#PerformancesChart">PerformancesChart</a></li><li><a href="global.html#Profil">Profil</a></li><li><a href="global.html#ScoreChart">ScoreChart</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#summaryItem">summaryItem</a></li><li><a href="global.html#topRoundedColumn">topRoundedColumn</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="user.html">user</a><ul class='methods'><li data-type='method' style='display: none;'><a href="user.html#getActivity">getActivity</a></li><li data-type='method' style='display: none;'><a href="user.html#getAverageSessions">getAverageSessions</a></li><li data-type='method' style='display: none;'><a href="user.html#getCalorieCount">getCalorieCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getCarbohydrateCount">getCarbohydrateCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getFirstName">getFirstName</a></li><li data-type='method' style='display: none;'><a href="user.html#getLipidCount">getLipidCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getPerformances">getPerformances</a></li><li data-type='method' style='display: none;'><a href="user.html#getProteinCount">getProteinCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getScore">getScore</a></li><li data-type='method' style='display: none;'><a href="user.html#setData">setData</a></li><li data-type='method' style='display: none;'><a href="user.html#setId">setId</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addTooltip">addTooltip</a></li><li><a href="global.html#AverageSessionsChart">AverageSessionsChart</a></li><li><a href="global.html#chartDimensions">chartDimensions</a></li><li><a href="global.html#DailyActivityGraph">DailyActivityGraph</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#linkGenerator">linkGenerator</a></li><li><a href="global.html#PageMenu">PageMenu</a></li><li><a href="global.html#PerformancesChart">PerformancesChart</a></li><li><a href="global.html#Profil">Profil</a></li><li><a href="global.html#ScoreChart">ScoreChart</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#summaryItem">summaryItem</a></li><li><a href="global.html#topRoundedColumn">topRoundedColumn</a></li><li><a href="global.html#UserInformationCollector">UserInformationCollector</a></li></ul>
 </nav>
 
 <div id="main">
@@ -46,8 +46,6 @@
         <article>
             <pre class="prettyprint source linenums"><code>import PropTypes from "prop-types"
 
-import { USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_MAIN_DATA, USER_PERFORMANCE } from "../datas/data"
-
 //EcmaScript 6 : POO (getter, setter)
 // user object class
 class user {
@@ -63,13 +61,23 @@ class user {
     /**
      * class representing an user 
      * @class
-     * @classdesc retrieve and store user information
+     * @classdesc retrieve and store user informations
      * 
      * @constructor
-     * @param {number} id - user id 
+     * @param {number} id - user id
+     * @param {object} data - contain user data 
+     * @param {array} data.activity - array of objects containing user activity records
+     * @param {object} data.keyData - contain counting indicators
+     * @param {object} data.mainData - contain user main informations
+     * @param {object} data.performances - contain attributes userId &lt;number>, kind &lt;object> and data &lt;object>
+     * @param {number} data.score - user activity score
+     * @param {array} data.sessions - array of objects containing user sessions records 
      */
-    constructor(id){
-        if(this.setId(id)){ this.getData() }
+    constructor(id, data){
+        if(!isNaN(id)){
+            this.setId(id)
+            this.setData(data)
+        }
     }
 
     /**
@@ -127,20 +135,6 @@ class user {
     getScore() { return this.todayScore }
 
     /**
-     * retrieves and stores user data
-     * @method
-     * @memberof user
-     */
-    getData(){
-        this.activity = USER_ACTIVITY.filter(session => session.userId === this.id)[0].sessions
-        this.averageSessions = USER_AVERAGE_SESSIONS.filter(session => session.userId === this.id)[0].sessions 
-        this.keyData = USER_MAIN_DATA.filter(user => user.id === this.id)[0].keyData
-        this.mainData = USER_MAIN_DATA.filter(user => user.id === this.id)[0].userInfos
-        this.performances = USER_PERFORMANCE.filter(perf => perf.userId === this.id)[0] 
-        this.todayScore = USER_MAIN_DATA.filter(user => user.id === this.id)[0].todayScore
-    }
-
-    /**
      * provides user first name
      * @method
      * @memberof user
@@ -164,23 +158,28 @@ class user {
      */
     getProteinCount(){ return this.keyData.proteinCount }
 
+    /**
+     * modify the value of attributes activity, averageSessions, keyData, mainData, performances, todayScore
+     * @method
+     * @memberof user
+     * @param {object} data - contain user data 
+     */
+    setData(data){
+        this.activity = data.activity
+        this.averageSessions = data.sessions 
+        this.keyData = data.keyData
+        this.mainData = data.mainData
+        this.performances = data.performances 
+        this.todayScore = data.score
+    }
 
     /**
      * modify the value of the id attribute
      * @method
      * @memberof user
      * @param {number} id - user id 
-     * @returns {boolean} true : paramater is in correct format
      */
-    setId(id){ 
-        if(!isNaN(id)){ 
-            this.id = parseInt(id) 
-            return true
-        } else { 
-            console.error("ID USER must be number !")
-            return false
-        }
-    }
+    setId(id){ if(!isNaN(id)){ this.id = parseInt(id) } }
 
 }
 
@@ -202,7 +201,7 @@ export default user</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Nov 18 2021 10:08:44 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Nov 19 2021 18:01:55 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

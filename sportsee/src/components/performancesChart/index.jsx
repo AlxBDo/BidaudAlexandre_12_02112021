@@ -17,7 +17,7 @@ const PerformancesChart = ({ data, dimensions }) => {
   const backgroundColor = "rgba(40, 45, 48, 1)"
   const containerWidth = 31
   const svgRef = React.useRef(null);
-  const { width, height, margin } = dimensions.calculate((0.9*0.7*0.31), "width", 0.05, 0.05, 0.05, 0.05);
+  const { width, height, margin } = dimensions.calculate((0.9*0.7*0.31), "width", 0.01, 0.01, 0.01, 0.01);
  
   React.useEffect(() => {
 
@@ -26,10 +26,10 @@ const PerformancesChart = ({ data, dimensions }) => {
     svgEl.selectAll("*").remove(); // Clear svg content before adding new elements 
     const svg = svgEl
       .append("g")
-      .attr("transform", `translate(${width/4},${height/4})`);
+      .attr("transform", `translate(${(width*0.9)/4},${height/4})`);
       
     // Radius of radar chart
-    const r = (width*0.9)/4
+    const r = (width)/4
     
 
     // data preparation
@@ -64,25 +64,25 @@ const PerformancesChart = ({ data, dimensions }) => {
 
     // axis
     dimensions.forEach((dimension, i) => {
-    const g = svg.append('g')
-      .attr('transform', `translate(${r}, ${r}) rotate(${i * 60})`)
-      .attr('stroke-width', 0)
+      const g = svg.append('g')
+        .attr('transform', `translate(${r}, ${r}) rotate(${i * 60})`)
+        .attr('stroke-width', 0)
 
-    // Combining a left oriented axis with a right oriented axis
-    // to make an axis with tick marks on both side
-    g.append('g')
-      .call(d3.axisLeft(yScale).tickFormat('').tickValues(ticks))
-    g.append('g')
-      .call(d3.axisRight(yScale).tickFormat('').tickValues(ticks))
+      // Combining a left oriented axis with a right oriented axis
+      // to make an axis with tick marks on both side
+      g.append('g')
+        .call(d3.axisLeft(yScale).tickFormat('').tickValues(ticks))
+      g.append('g')
+        .call(d3.axisRight(yScale).tickFormat('').tickValues(ticks))
 
-    // Add a text label for each axis
-    g.append('text')
-      .text(dimension)
-      .style("font-size", "small")
-      .attr("fill", "white")
-      .attr("class", "categories")
-      .attr('text-anchor', i === 0 || i === 3 ? 'middle' : i < 3 ? "start" : "end")
-      .attr('transform', `translate(0, -${r + 10}) rotate(${i * -60})`)
+      // Add a text label for each axis
+      g.append('text')
+        .text(dimension)
+        .style("font-size", width < 200 ? "x-small" : "small")
+        .attr("fill", "white")
+        .attr("class", "categories")
+        .attr('text-anchor', i === 0 || i === 3 ? 'middle' : i < 3 ? "start" : "end")
+        .attr('transform', `translate(0, -${r + 10}) rotate(${i * -60})`)
     })
 
     // Line for the base stats of Snorlax

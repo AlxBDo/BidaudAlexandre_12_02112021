@@ -29,7 +29,7 @@
     
     <input type="text" id="nav-search" placeholder="Search" />
     
-    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="user.html">user</a><ul class='methods'><li data-type='method' style='display: none;'><a href="user.html#getActivity">getActivity</a></li><li data-type='method' style='display: none;'><a href="user.html#getAverageSessions">getAverageSessions</a></li><li data-type='method' style='display: none;'><a href="user.html#getCalorieCount">getCalorieCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getCarbohydrateCount">getCarbohydrateCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getData">getData</a></li><li data-type='method' style='display: none;'><a href="user.html#getFirstName">getFirstName</a></li><li data-type='method' style='display: none;'><a href="user.html#getLipidCount">getLipidCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getPerformances">getPerformances</a></li><li data-type='method' style='display: none;'><a href="user.html#getProteinCount">getProteinCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getScore">getScore</a></li><li data-type='method' style='display: none;'><a href="user.html#setId">setId</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addTooltip">addTooltip</a></li><li><a href="global.html#AverageSessionsChart">AverageSessionsChart</a></li><li><a href="global.html#chartDimensions">chartDimensions</a></li><li><a href="global.html#DailyActivityGraph">DailyActivityGraph</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#linkGenerator">linkGenerator</a></li><li><a href="global.html#PageMenu">PageMenu</a></li><li><a href="global.html#PerformancesChart">PerformancesChart</a></li><li><a href="global.html#Profil">Profil</a></li><li><a href="global.html#ScoreChart">ScoreChart</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#summaryItem">summaryItem</a></li><li><a href="global.html#topRoundedColumn">topRoundedColumn</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="user.html">user</a><ul class='methods'><li data-type='method' style='display: none;'><a href="user.html#getActivity">getActivity</a></li><li data-type='method' style='display: none;'><a href="user.html#getAverageSessions">getAverageSessions</a></li><li data-type='method' style='display: none;'><a href="user.html#getCalorieCount">getCalorieCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getCarbohydrateCount">getCarbohydrateCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getFirstName">getFirstName</a></li><li data-type='method' style='display: none;'><a href="user.html#getLipidCount">getLipidCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getPerformances">getPerformances</a></li><li data-type='method' style='display: none;'><a href="user.html#getProteinCount">getProteinCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getScore">getScore</a></li><li data-type='method' style='display: none;'><a href="user.html#setData">setData</a></li><li data-type='method' style='display: none;'><a href="user.html#setId">setId</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addTooltip">addTooltip</a></li><li><a href="global.html#AverageSessionsChart">AverageSessionsChart</a></li><li><a href="global.html#chartDimensions">chartDimensions</a></li><li><a href="global.html#DailyActivityGraph">DailyActivityGraph</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#linkGenerator">linkGenerator</a></li><li><a href="global.html#PageMenu">PageMenu</a></li><li><a href="global.html#PerformancesChart">PerformancesChart</a></li><li><a href="global.html#Profil">Profil</a></li><li><a href="global.html#ScoreChart">ScoreChart</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#summaryItem">summaryItem</a></li><li><a href="global.html#topRoundedColumn">topRoundedColumn</a></li><li><a href="global.html#UserInformationCollector">UserInformationCollector</a></li></ul>
 </nav>
 
 <div id="main">
@@ -71,7 +71,9 @@ function DailyActivityGraph({ data, dimensions }) {
     svgEl.selectAll("*").remove(); // Clear svg content before adding new elements 
     const svg = svgEl
       .append("g")
-      .attr("transform", `translate(5 ,${margin.top})`);
+      .attr("transform", `translate(5 ,${margin.top+margin.bottom})`);
+
+    let chartHeight = height * 0.85
 
     // Create axes
     const xScale = d3.scaleBand()
@@ -80,7 +82,7 @@ function DailyActivityGraph({ data, dimensions }) {
     .domain(data.map((d) => d.day.substring(9)));
 
     const yScale = d3.scaleLinear()
-    .range([height, 0])
+    .range([chartHeight, 0])
     .domain([0, d3.max(data, d => d.kilogram > d.calories ? d.kilogram : d.calories+100)]);
 
     // Add tooltip
@@ -91,7 +93,7 @@ function DailyActivityGraph({ data, dimensions }) {
    // Add X grid lines with labels
    const xAxis = d3.axisBottom(xScale).tickSize(0);
    const xAxisGroup = svg.append("g")
-     .attr("transform", `translate(0, ${height*0.85})`)
+     .attr("transform", `translate(${-width*0.11}, ${chartHeight*0.95})`)
      .attr("color", "#DEDEDE")
      .call(xAxis);
    xAxisGroup.selectAll("text")
@@ -100,15 +102,16 @@ function DailyActivityGraph({ data, dimensions }) {
      .style("font-size", "14px")
      .style("font-weight", "bold")
      .attr("dx", "-2.5em")
-     .attr("dy", "1.5em");
+     .attr("dy", "1.5em")
+     .attr("transform", `translate(${width &lt; 600 ? width*0.11 : width*0.09}, 0)`);
 
     // Add Y grid lines with labels
-    const yAxis = d3.axisRight(yScale).ticks(3).tickSize(-width);
+    const yAxis = d3.axisRight(yScale).ticks(3).tickSize(-width*0.9);
     const yAxisGroup = svg.append("g")
-    .attr("transform", `translate(${width-(margin.right)}, -48)`)
+    .attr("transform", `translate(${width-(margin.right)}, ${-chartHeight*0.05})`)
     .attr("stroke-width", "0").call(yAxis);
     yAxisGroup.selectAll("line")
-      .attr("transform", `translate(0, 0)`)
+      .attr("transform", `translate(${-width*0.08}, 0)`)
       .attr("stroke", "#DEDEDE")
       .attr("stroke-width", "1")
       .style("stroke-dasharray", "2 2");
@@ -118,14 +121,14 @@ function DailyActivityGraph({ data, dimensions }) {
       .data(data)
       .enter().append("path")
       .attr("class", "day")
-      .attr("d", d => `M${xScale(d.day.substring(9))-28.76},${height} ` + // Mx,y Move the pen to(x, y)
-      `v-${height - yScale(d.calories) + 20} ` +  // arc
+      .attr("d", d => `M${xScale(d.day.substring(9))-28.76},${chartHeight} ` + // Mx,y Move the pen to(x, y)
+      `v-${chartHeight - yScale(d.calories) + 20} ` +  // arc
       `a ${width},0 1 1 1 56,0  ` +
-      `v${height- yScale(d.calories)+20} ` +
+      `v${chartHeight- yScale(d.calories)+20} ` +
       `z`)
       .attr("fill", "transparent")
-      .attr("height", d => height - yScale(d.kilogram))
-      .attr("transform", `translate(0, ${-height*0.15})`)
+      .attr("height", d => chartHeight - yScale(d.kilogram))
+      .attr("transform", `translate(0, ${-chartHeight*0.05})`)
       .style("position", "relative")
       .style("z-index", 9)
       .on("mouseover", (event, d) => {
@@ -149,10 +152,10 @@ function DailyActivityGraph({ data, dimensions }) {
       .attr("class", "kilogram")
       .attr("x", d => xScale('kilogram'))
       .attr("y", d => yScale(d.kilogram))
-      .attr("d", d => topRoundedColumn(xScale(d.day.substring(9)), height, height - yScale(d.kilogram), 7))
+      .attr("d", d => topRoundedColumn(xScale(d.day.substring(9)), chartHeight, chartHeight - yScale(d.kilogram), 7))
       .attr("fill", "#282D30")
-      .attr("height", d => height - yScale(d.kilogram))
-      .attr("transform", `translate(0, ${-height*0.15})`)
+      .attr("height", d => chartHeight - yScale(d.kilogram))
+      .attr("transform", `translate(0, ${-chartHeight*0.05})`)
       .style("position", "relative")
       .style("z-index", 1);
 
@@ -163,10 +166,10 @@ function DailyActivityGraph({ data, dimensions }) {
       .attr("class", "calories")
       .attr("x", d => xScale('calories'))
       .attr("y", d => yScale(d.calories))
-      .attr("d", d => topRoundedColumn(xScale(d.day.substring(9)), height, height - yScale(d.calories), 7))
+      .attr("d", d => topRoundedColumn(xScale(d.day.substring(9)), chartHeight, chartHeight - yScale(d.calories), 7))
       .attr("fill", "#E60000")
-      .attr("height", d => height - yScale(d.calories))
-      .attr("transform", `translate(${(margin.left/3)}, ${-height*0.15})`)
+      .attr("height", d => chartHeight - yScale(d.calories))
+      .attr("transform", `translate(${(margin.left/3)}, ${-chartHeight*0.05})`)
       .style("position", "relative")
       .style("z-index", 1);
 
@@ -177,7 +180,7 @@ function DailyActivityGraph({ data, dimensions }) {
     .attr("y", 25)
     .attr("height", 100)
     .attr("width", 150)
-    .style("transform", 'translateY(0px)');
+    .style("transform", `translateY(-${chartHeight*0.025}px)`);
     title.append("text")
     .text("Activité quotidienne")
     .style("font-weight", "bold")
@@ -190,7 +193,8 @@ function DailyActivityGraph({ data, dimensions }) {
     .attr("y", 25)
     .attr("height", 100)
     .attr("width", 100)
-    .style("transform", 'translateY(-30px)');
+    .style("transform", `translate(-${width*0.15}px, -${chartHeight*0.05}px)`)
+    .style("font-size", width>600 ? null : "small");
     legend.selectAll('g').data(["Poids (kg)", "Calories brûlées (kCal)"])
       .enter()
       .append('g')
@@ -211,7 +215,7 @@ function DailyActivityGraph({ data, dimensions }) {
 
       });
     
-  }, [data, width, height, margin.left, margin.right, margin.top]); // Redraw chart if data changes
+  }, [data, width, height, margin]); // Redraw chart if data changes
  
   return (
     &lt;GraphicContainer id="daily-activity-graph" $bgColor={backgroundColor} $width={containerWidth}>
@@ -238,7 +242,7 @@ export default DailyActivityGraph;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Nov 18 2021 10:08:44 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Nov 19 2021 18:01:55 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
