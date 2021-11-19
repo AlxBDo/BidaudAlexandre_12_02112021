@@ -132,3 +132,13 @@ main p:first-of-type {
 #average-sessions-graph {
 	overflow-x: hidden;
 }
+
+
+/**
+ * Keyframes
+ */
+
+ @keyframes loading {
+	from{ transform: rotate(0deg)}
+	to { transform: rotate(360deg)}
+}

@@ -1,7 +1,5 @@
 import PropTypes from "prop-types"
 
-import { USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_MAIN_DATA, USER_PERFORMANCE } from "../datas/data"
-
 //EcmaScript 6 : POO (getter, setter)
 // user object class
 class user {
@@ -17,13 +15,23 @@ class user {
     /**
      * class representing an user 
      * @class
-     * @classdesc retrieve and store user information
+     * @classdesc retrieve and store user informations
      * 
      * @constructor
-     * @param {number} id - user id 
+     * @param {number} id - user id
+     * @param {object} data - contain user data 
+     * @param {array} data.activity - array of objects containing user activity records
+     * @param {object} data.keyData - contain counting indicators
+     * @param {object} data.mainData - contain user main informations
+     * @param {object} data.performances - contain attributes userId <number>, kind <object> and data <object>
+     * @param {number} data.score - user activity score
+     * @param {array} data.sessions - array of objects containing user sessions records 
      */
-    constructor(id){
-        if(this.setId(id)){ this.getData() }
+    constructor(id, data){
+        if(!isNaN(id)){
+            this.setId(id)
+            this.setData(data)
+        }
     }
 
     /**
@@ -81,20 +89,6 @@ class user {
     getScore() { return this.todayScore }
 
     /**
-     * retrieves and stores user data
-     * @method
-     * @memberof user
-     */
-    getData(){
-        this.activity = USER_ACTIVITY.filter(session => session.userId === this.id)[0].sessions
-        this.averageSessions = USER_AVERAGE_SESSIONS.filter(session => session.userId === this.id)[0].sessions 
-        this.keyData = USER_MAIN_DATA.filter(user => user.id === this.id)[0].keyData
-        this.mainData = USER_MAIN_DATA.filter(user => user.id === this.id)[0].userInfos
-        this.performances = USER_PERFORMANCE.filter(perf => perf.userId === this.id)[0] 
-        this.todayScore = USER_MAIN_DATA.filter(user => user.id === this.id)[0].todayScore
-    }
-
-    /**
      * provides user first name
      * @method
      * @memberof user
@@ -118,23 +112,28 @@ class user {
      */
     getProteinCount(){ return this.keyData.proteinCount }
 
+    /**
+     * modify the value of attributes activity, averageSessions, keyData, mainData, performances, todayScore
+     * @method
+     * @memberof user
+     * @param {object} data - contain user data 
+     */
+    setData(data){
+        this.activity = data.activity
+        this.averageSessions = data.sessions 
+        this.keyData = data.keyData
+        this.mainData = data.mainData
+        this.performances = data.performances 
+        this.todayScore = data.score
+    }
 
     /**
      * modify the value of the id attribute
      * @method
      * @memberof user
      * @param {number} id - user id 
-     * @returns {boolean} true : paramater is in correct format
      */
-    setId(id){ 
-        if(!isNaN(id)){ 
-            this.id = parseInt(id) 
-            return true
-        } else { 
-            console.error("ID USER must be number !")
-            return false
-        }
-    }
+    setId(id){ if(!isNaN(id)){ this.id = parseInt(id) } }
 
 }
 
