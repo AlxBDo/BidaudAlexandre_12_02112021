@@ -1,6 +1,6 @@
-[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)[![forthebadge]
-[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)[![forthebadge]
-[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)[![forthebadge]
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
 
 
 # SportSee : The physical activity tracking app
@@ -55,3 +55,8 @@ To retrieve user information, the project uses the endpoints below:
 
 - `http://localhost:3000/user/12/performance` - Retrieves the performance of the user with id 12
 - `http://localhost:3000/user/18` - Retrieves user 18's main information.
+
+
+## 5. Documentation
+
+The documentation can be viewed by following the link below : [contributor guide index](https://alxbdo.github.io/BidaudAlexandre_12_02112021-/sportsee/src/docs/index.html)
