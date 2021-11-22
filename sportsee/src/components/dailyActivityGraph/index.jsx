@@ -109,7 +109,10 @@ function DailyActivityGraph({ data, dimensions }) {
       .attr("d", d => topRoundedColumn(xScale(d.day.substring(9)), chartHeight, chartHeight - yScale(d.kilogram), 7))
       .attr("fill", "#282D30")
       .attr("height", d => chartHeight - yScale(d.kilogram))
-      .attr("transform", `translate(0, ${-chartHeight*0.05})`)
+      .attr("transform", `scale(0)`)
+      .attr("transform-origin", `left ${chartHeight*0.95}px`)
+      .transition("scale").duration(1000)
+      .attr("transform", `translate(0, ${-chartHeight*0.05}) scale(1)`)
       .style("position", "relative")
       .style("z-index", 1);
 
@@ -123,7 +126,10 @@ function DailyActivityGraph({ data, dimensions }) {
       .attr("d", d => topRoundedColumn(xScale(d.day.substring(9)), chartHeight, chartHeight - yScale(d.calories), 7))
       .attr("fill", "#E60000")
       .attr("height", d => chartHeight - yScale(d.calories))
-      .attr("transform", `translate(${(margin.left/3)}, ${-chartHeight*0.05})`)
+      .attr("transform", `scale(0)`)
+      .attr("transform-origin", `left ${chartHeight*0.95}px`)
+      .transition("scale").duration(1000)
+      .attr("transform", `translate(${(margin.left/3)}, ${-chartHeight*0.05}) scale(1)`)
       .style("position", "relative")
       .style("z-index", 1);
 

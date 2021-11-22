@@ -55,9 +55,9 @@ const ScoreChart = ({ data, dimensions }) => {
     svg.selectAll("path")
         .data(pie(dataset.things))
         .enter().append("path")
-        .attr("transform", `translate(0, 15)`)
         .attr("fill", function(d, i) { return colors[i]; })
-        .attr("d", arc);
+        .attr("d", arc)
+        .attr("transform", `translate(0, 15)`);
         
     // add text
     let text = svg.append("text").attr("text-anchor", "middle")
