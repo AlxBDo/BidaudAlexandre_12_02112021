@@ -59,4 +59,4 @@ To retrieve user information, the project uses the endpoints below:
 
 ## 5. Documentation
 
-The documentation can be viewed by following the link below : [contributor guide index](https://alxbdo.github.io/BidaudAlexandre_12_02112021-/sportsee/src/docs/index.html)
+The documentation can be viewed by following the link below : [documentation](https://alxbdo.github.io/BidaudAlexandre_12_02112021-/sportsee/src/docs/)
