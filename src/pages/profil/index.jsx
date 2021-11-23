@@ -21,7 +21,7 @@ const ErrorMessage = styled.div`
     line-height: 1.5em;
 `
 const LoadingMessage = styled.div`
-    color: lightgreen;
+    color: #FF0101;
     font-size: x-large;
     font-weight: 500;
     text-align: center;
@@ -29,7 +29,7 @@ const LoadingMessage = styled.div`
 `
 
 const LoadingIcon = styled.p`
-    border: 10px solid lightgreen;
+    border: 10px solid #FF0101;
 	height: 50px;
 	width: 50px;
 	border-radius: 100px;

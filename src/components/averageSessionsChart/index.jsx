@@ -24,36 +24,31 @@ function AverageSessionsChart({ data, dimensions }){
     const svgEl = d3.select(svgRef.current);
     const svg = svgEl
       .append("g")
-      .attr("transform", `translate(0,${margin.top})`);
+      .attr("transform", `translate(${-width/9}, 0)`);
       
     // data preparation
-    let days = ["start", "L", "La", "M", "Ma", "M ", "Mea", "J", "Ja", "V", "Va", "S", "Sa", "D", "end"]
-    let xCoords = days.map((d, i) => i * width/14);
+    let days = ["s", "L", "M", "M ", "J", "V", "S", "D", "e"]
+    let xCoords = days.map((d, i) => i * width/7);
 
-    let averageData = []
+    let dataModified = []
     data.forEach((d, i) => {
       if(d.day === 1){
-        averageData.push({
+        dataModified.push({
           day: "start", 
           sessionLength: d.sessionLength/2
         })
-      } else {
-        averageData.push({
-          day: `average${i-1}`, 
-          sessionLength: (d.sessionLength + data[i-1].sessionLength)/2
-        })
       }
-      averageData.push({day: d.day, sessionLength: d.sessionLength})
+      dataModified.push({day: d.day, sessionLength: d.sessionLength})
       if(d.day === 7){
-        averageData.push({day: "end", sessionLength: d.sessionLength/2})
+        dataModified.push({day: "end", sessionLength: d.sessionLength/2})
       }
     })
 
     const x = d3.scaleOrdinal().domain(days).range(xCoords);
     const y = d3.scaleLinear()
-      .range([height, 60]);
+      .range([height*0.9, 50]);
 
-    y.domain(d3.extent(averageData, d => d.sessionLength));
+    y.domain(d3.extent(dataModified, d => d.sessionLength));
 
     // Draw the lines
     const line = d3.line()
@@ -63,7 +58,7 @@ function AverageSessionsChart({ data, dimensions }){
 
     // Add axis
     svg.append("g")
-        .attr("transform", "translate(0," + (height*0.9) + ")")
+        .attr("transform", `translate(0, ${height*0.9})`)
         .call(d3.axisBottom(x))
         .attr("stroke-width", 0)
         .style("color", "rgba(255, 255, 255, 0.6)")
@@ -73,7 +68,7 @@ function AverageSessionsChart({ data, dimensions }){
     
     // Add path to calculate line function
     svg.append("path")
-        .datum(averageData)
+        .datum(dataModified)
         .attr("class", "line")
         .attr("d", line)
         .attr("stroke", "white")
@@ -82,10 +77,10 @@ function AverageSessionsChart({ data, dimensions }){
     
     svg.append("rect")
     .attr("class", "overlayBackground")
-    .attr("width", width)
+    .attr("width", width*0.945)
     .attr("height", height+5)
     .attr("opacity", 0.15)
-    .attr("y", 0)
+    .attr("y", 0);
 
     const tooltip = addTooltip(svg)
     
@@ -105,15 +100,24 @@ function AverageSessionsChart({ data, dimensions }){
 
     function mousemove(event){
       let position = d3.pointer(event)[0]
-      x.invert = cursorPosition => xCoords[parseInt((cursorPosition+25)/15)]
-      let bisecDay = d3.bisector(d => xCoords[d.day]).left
-      let x0 = x.invert(position),
-      i = bisecDay(averageData, x0),
-      d = averageData[i];
+      let xSlice = width/7
+      let i = parseInt(position/xSlice)
+      let d = dataModified[i]
       d3.select('.overlayBackground').attr("transform", `translate(${position}, 0)`)
-      if(i >= averageData.length){ d = averageData[13] }
+      if(i >= dataModified.length){ 
+        i = 8
+        d = dataModified[i] 
+      }
+      console.log("I = ", dataModified.length)
       if(i >= 0) {
-        tooltip.attr("transform", "translate(" +position + "," + y(d.sessionLength) + ")");
+        let xQuarterSlice = xSlice /4
+        let startPosition = (i * xSlice)
+        let yPosition = y(d.sessionLength)
+        if(i <= 9){
+          let countQuarterSlice = (positionInSlice) => { for(let i = 1; i <= 4; i++){ if((i*xQuarterSlice)>positionInSlice){ return (i-1)*0.25 }}}
+          yPosition += (y(dataModified[i+1].sessionLength) - yPosition) * countQuarterSlice(position - startPosition)
+        }
+        tooltip.attr("transform", "translate(" +position + "," + yPosition + ")");
           d3.select('#tooltip-close')
               .text(d.sessionLength + " min");
       }
@@ -123,7 +127,7 @@ function AverageSessionsChart({ data, dimensions }){
     titlePath.append("tspan").text(chartTitle[0]).attr("y", 20).attr("x", 30)
     titlePath.append("tspan").text(chartTitle[1]).attr("x", 30).attr("dy", "1.95em")
 
-  }, [data, width, height, margin.left, margin.right, margin.top]); // Redraw chart if data changes
+  }, [data, width, height, margin]); // Redraw chart if data changes
  
   return (
     <GraphicContainer id="average-sessions-graph" $bgColor={backgroundColor} $width={containerWidth}>

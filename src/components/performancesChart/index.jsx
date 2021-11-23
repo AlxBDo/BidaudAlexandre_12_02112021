@@ -26,10 +26,10 @@ const PerformancesChart = ({ data, dimensions }) => {
     svgEl.selectAll("*").remove(); // Clear svg content before adding new elements 
     const svg = svgEl
       .append("g")
-      .attr("transform", `translate(${(width*0.9)/4},${height/4})`);
+      .attr("transform", `translate(${(width*0.9)/5},${height/4})`);
       
     // Radius of radar chart
-    const r = (width)/4
+    const r = width*0.29
     
 
     // data preparation
