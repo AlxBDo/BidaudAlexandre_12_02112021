@@ -46,15 +46,15 @@ function AverageSessionsChart({ data, dimensions }){
 
     const x = d3.scaleOrdinal().domain(days).range(xCoords);
     const y = d3.scaleLinear()
-      .range([height*0.9, 50]);
+      .domain(d3.extent(dataModified, d => d.sessionLength))
+      .range([parseInt(height*0.9), parseInt(height*0.3)]);
 
-    y.domain(d3.extent(dataModified, d => d.sessionLength));
 
     // Draw the lines
     const line = d3.line()
       .x((d) => x(d.day))
       .y((d) => y(d.sessionLength))
-      .curve(d3.curveBasis);
+      .curve(d3.curveCatmullRom);
 
     // Add axis
     svg.append("g")
@@ -77,16 +77,17 @@ function AverageSessionsChart({ data, dimensions }){
     
     svg.append("rect")
     .attr("class", "overlayBackground")
-    .attr("width", width*0.945)
-    .attr("height", height+5)
+    .attr("width", width*0.94)
+    .attr("height", height)
     .attr("opacity", 0.15)
-    .attr("y", 0);
+    .attr("y", 0)
+    .attr("transform", `translate(${width/9}, 0)`);
 
     const tooltip = addTooltip(svg)
     
     svg.append("rect")
     .attr("class", "overlay")
-    .attr("width", width)
+    .attr("width", (width/7)*9)
     .attr("height", height)
     .attr("fill", "transparent")
     .style("overflow", "hidden")
@@ -108,13 +109,13 @@ function AverageSessionsChart({ data, dimensions }){
         i = 8
         d = dataModified[i] 
       }
-      console.log("I = ", dataModified.length)
       if(i >= 0) {
-        let xQuarterSlice = xSlice /4
+        let xTenthSlice = xSlice /10
         let startPosition = (i * xSlice)
         let yPosition = y(d.sessionLength)
-        if(i <= 9){
-          let countQuarterSlice = (positionInSlice) => { for(let i = 1; i <= 4; i++){ if((i*xQuarterSlice)>positionInSlice){ return (i-1)*0.25 }}}
+        if(i <= 8){
+          let countQuarterSlice = (positionInSlice) => { 
+            for(let i = 1; i <= 10; i++){ if((i*xTenthSlice)>positionInSlice){ return (i-1)*0.1 } } }
           yPosition += (y(dataModified[i+1].sessionLength) - yPosition) * countQuarterSlice(position - startPosition)
         }
         tooltip.attr("transform", "translate(" +position + "," + yPosition + ")");
@@ -124,8 +125,8 @@ function AverageSessionsChart({ data, dimensions }){
     }
 
     let titlePath = svg.append("text").attr("fill", "white").style("color", "white").attr("opacity", 0.5)
-    titlePath.append("tspan").text(chartTitle[0]).attr("y", 20).attr("x", 30)
-    titlePath.append("tspan").text(chartTitle[1]).attr("x", 30).attr("dy", "1.95em")
+    titlePath.append("tspan").text(chartTitle[0]).attr("y", 20).attr("x", 50)
+    titlePath.append("tspan").text(chartTitle[1]).attr("x", 50).attr("dy", "1.95em")
 
   }, [data, width, height, margin]); // Redraw chart if data changes
  

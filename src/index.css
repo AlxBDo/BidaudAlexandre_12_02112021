@@ -16,6 +16,11 @@ main {
 	margin-left: 10%;
 }
 
+
+#average-sessions-graph, #performances, #score {
+	overflow: hidden;
+}
+
 .flex{ display: flex;}
 
 .App {
