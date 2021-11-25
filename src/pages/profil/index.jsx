@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import UserInformationCollector from '../../utils/hooks'
-import user from "../../utils/user.js"
+import user from "../../models/user.js"
 import chartDimensions from "../../utils/chartDimensions";
 import DailyActivityGraph from '../../components/dailyActivityGraph';
 import AverageSessionsChart from '../../components/averageSessionsChart/index.jsx';

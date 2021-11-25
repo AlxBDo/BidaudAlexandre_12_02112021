@@ -30,17 +30,17 @@ function UserInformationCollector(userId) {
             axios.get(`http://localhost:3000/user/${userId}/today-score`) 
         ] 
         Promise.all(dataRequest)
-            .then((response) => {
+            .then(axios.spread((userInfos, userActivity, userSessions, userKeyData, userPerformance, userScore) => {
                 setData({
-                    mainData: response[0].data.data.userInfos, 
-                    activity: response[1].data.data.sessions,
-                    sessions: response[2].data.data.sessions,
-                    keyData: response[3].data.data,
-                    performances: response[4].data.data,
-                    score: response[5].data.data
+                    mainData: userInfos.data.data.userInfos, 
+                    activity: userActivity.data.data.sessions,
+                    sessions: userSessions.data.data.sessions,
+                    keyData: userKeyData.data.data,
+                    performances: userPerformance.data.data,
+                    score: userScore.data.data
                 })
                 setLoading(false)
-            })
+            }))
             .catch((error) => {
                 setError(true)
                 console.error(error);
