@@ -7,7 +7,7 @@
 
 The SportSee app measures your performance and fitness indicators so you can track your physical activity
 
-![ScreenShot](https://alxbdo.github.io/BidaudAlexandre_12_02112021-/src/assets/maquette.png)
+![ScreenShot](https://alxbdo.github.io/BidaudAlexandre_12_02112021/src/assets/maquette.png)
 
 
 ## 1. Author
