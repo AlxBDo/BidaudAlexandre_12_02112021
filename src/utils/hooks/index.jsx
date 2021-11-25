@@ -10,7 +10,7 @@ const axios = require('axios').default;
  * @returns {object} objectReturn.data = { mainData: <object>, activity: <array>, sessions: <array>, keyData: <object>, performances: <object>, score: <number>}
  * @returns {boolean} objectReturn.error - An error has occurred ?
  */
-function UserInformationCollector(userId) {
+function useUserApi(userId) {
   const [data, setData] = useState({})
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -50,4 +50,4 @@ function UserInformationCollector(userId) {
   return { isLoading, data, error }
 }
 
-export default UserInformationCollector
+export default useUserApi

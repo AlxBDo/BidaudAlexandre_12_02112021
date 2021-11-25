@@ -19,7 +19,7 @@ ReactDOM.render(
       <PageMenu />
       <Switch>
         <Route exact path="/"><Home /></Route>
-        <Route path="/Profil/:idUser"><Profil /></Route>
+        <Route path="/Profil/:idUser/:dataFrom"><Profil /></Route>
         <Route path="*"><Error /></Route>
       </Switch>
     </Router>

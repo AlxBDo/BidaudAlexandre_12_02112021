@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import UserInformationCollector from '../../utils/hooks'
+import UserInformationCollector from "../../services/userInformationCollector";
 import user from "../../models/user.js"
 import chartDimensions from "../../utils/chartDimensions";
 import DailyActivityGraph from '../../components/dailyActivityGraph';
@@ -45,8 +45,8 @@ const LoadingIcon = styled.p`
  * @returns {object} main dom object
  */
 function Profil() {
-    const { idUser } = useParams()
-    const { data, isLoading, error } = UserInformationCollector(idUser)
+    const { idUser, dataFrom } = useParams()
+    const { data, isLoading, error } = UserInformationCollector(idUser, dataFrom)
     const userObj = new user(idUser, data)  
     return(
         <main>
@@ -62,7 +62,7 @@ function Profil() {
                 </LoadingMessage>
             ) : (
                 <div>
-                    <h1>Bonjour {!isLoading ? (<span>{userObj.getFirstName()}</span>) : null}</h1>
+                    <h1>Bonjour <span>{userObj.getFirstName()}</span></h1>
                     <p>Félicitation ! Vous avez explosé vos objectifs hier 👏 </p>
                     <div id="dashboard">
                         <section id="graph">

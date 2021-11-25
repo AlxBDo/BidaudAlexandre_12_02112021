@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from "react-router-dom"
 
 import { USER_MAIN_DATA } from "../../datas/data"
@@ -8,14 +9,36 @@ import { USER_MAIN_DATA } from "../../datas/data"
  * @returns {object} main html object
  */
 function Home() {
+    const [dataFrom, setDataFrom] = useState()
     return(
         <main>
             <p>Bienvenue sur le site de test de SportSee</p>
+            <p>
+                Les données de l'utilisateur seront collectées à partir : 
+                <input 
+                    type="radio" 
+                    name="data-from" 
+                    id="data-from-api"
+                    value="api" 
+                    checked={dataFrom} 
+                    onChange={()=> setDataFrom(!dataFrom)} 
+                />
+                <label for="data-from-api">API</label> 
+                <input 
+                    type="radio" 
+                    name="data-from" 
+                    id="data-from-mock" 
+                    value="mock" 
+                    checked={!dataFrom} 
+                    onChange={()=> setDataFrom(!dataFrom)} 
+                />
+                <label for="data-from-mock">Mock</label>
+            </p>
             <p>Choisissez un utilisateur pour accéder à son profil</p>
             <ul>
                 {USER_MAIN_DATA.map((user)=>(
                     <li key={user.id}>
-                        <Link to={`/profil/${user.id}`}>{user.userInfos.firstName}</Link>
+                        <Link to={`/profil/${user.id}/${dataFrom ? "api" : "mock"}`}>{user.userInfos.firstName}</Link>
                     </li>
                 ))}
             </ul>
