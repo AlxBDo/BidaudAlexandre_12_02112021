@@ -138,7 +138,8 @@ class user {
 }
 
 user.PropTypes = {
-    id : PropTypes.number.isRequired
+    id : PropTypes.number.isRequired,
+    data : PropTypes.object.isRequired
 }
 
 export default user

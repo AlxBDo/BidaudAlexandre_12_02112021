@@ -34,7 +34,6 @@ If you are working with several versions of NodeJS, we recommend you install [nv
 
 ### 3.2 Launching the project
 
-- Fork the repository
 - Clone it on your computer.
 - The `yarn` command will allow you to install the dependencies.
 

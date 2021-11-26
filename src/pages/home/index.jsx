@@ -9,7 +9,7 @@ import { USER_MAIN_DATA } from "../../datas/data"
  * @returns {object} main html object
  */
 function Home() {
-    const [dataFrom, setDataFrom] = useState()
+    const [dataFrom, setDataFrom] = useState(false)
     return(
         <main>
             <p>Bienvenue sur le site de test de SportSee</p>
@@ -23,7 +23,7 @@ function Home() {
                     checked={dataFrom} 
                     onChange={()=> setDataFrom(!dataFrom)} 
                 />
-                <label for="data-from-api">API</label> 
+                <label htmlFor="data-from-api">API</label> 
                 <input 
                     type="radio" 
                     name="data-from" 
@@ -32,7 +32,7 @@ function Home() {
                     checked={!dataFrom} 
                     onChange={()=> setDataFrom(!dataFrom)} 
                 />
-                <label for="data-from-mock">Mock</label>
+                <label htmlFor="data-from-mock">Mock</label>
             </p>
             <p>Choisissez un utilisateur pour accéder à son profil</p>
             <ul>

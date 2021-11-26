@@ -42,11 +42,12 @@ const LoadingIcon = styled.p`
  * Component for displaying user activity dashboard
  * @component
  * @param {number} idUser - user id 
+ * @param {string} dataFrom - data source : api or mock
  * @returns {object} main dom object
  */
 function Profil() {
     const { idUser, dataFrom } = useParams()
-    const { data, isLoading, error } = UserInformationCollector(idUser, dataFrom)
+    const { data, isLoading, error } = UserInformationCollector(parseInt(idUser), dataFrom)
     const userObj = new user(idUser, data)  
     return(
         <main>
