@@ -9,17 +9,18 @@ userApiService.propTypes = {
 }
 
 /**
- * 
+ * function using Axios for the relation with the API
+ * @function
  * @param {array} dataRequest - url list
  * @param {function} dataFunctionCallback  - function call by axios.spread to manage data
  * @param {function} errorFunctionCallback - error function. if error "true" will be passed in parameter
  */
 function userApiService(dataRequest, dataFunctionCallback, errorFunctionCallback) {
     const axiosGet = dataRequest.map(request => axios.get(request))
-    Promise.all(axiosGet)
+    return Promise.all(axiosGet)
         .then(axios.spread(dataFunctionCallback))
         .catch((error) => {
-            errorFunctionCallback(true)
+            if(errorFunctionCallback){errorFunctionCallback(true)}
             console.error(error);
         });
 
