@@ -20,6 +20,7 @@ Alexandre Bidaud
 - JS
 - CSS
 - React
+- D3.js
 
 
 ## 3. Project
@@ -34,8 +35,19 @@ If you are working with several versions of NodeJS, we recommend you install [nv
 
 ### 3.2 Launching the project
 
-- Clone it on your computer.
-- The `yarn` command will allow you to install the dependencies.
+- Clone it on your computer :
+
+    * github 
+![ScreenShot](https://alxbdo.github.io/BidaudAlexandre_12_02112021/src/assets/clone_repo.jpg)
+
+    * In your terminal
+    ``` git clone https://github.com/AlxBDo/BidaudAlexandre_12_02112021.git ```
+
+- Install `npm`  : ``` npm install ```
+
+- Install `yarn` : ``` npm install yarn```
+
+- Lunch the project : ``` yarn start ```
 
 
 ## 4. Endpoints
