@@ -17,7 +17,7 @@ main {
 }
 
 
-#average-sessions-graph, #performances, #score {
+#averageSessionsChart, #performancesChart, #scoreChart {
 	overflow: hidden;
 }
 
@@ -65,16 +65,17 @@ main p:first-of-type:not(.summary-item-value) {
 	fill: #C4C4C4;
 }
 
-#daily-activity-graph {
+#dailyActivityChart {
+	background-color: #FBFBFB;
+	border-radius: 5px;
+	padding: 3% 0%;
+}
+#daily-activityChart {
 	background-color: #FBFBFB;
 	border-radius: 5px;
 	padding: 3% 0%;
 }
 
-
-#graph {
-	width: 70%;
-}
 #summary {
 	margin-right: 3%;
 }
@@ -132,7 +133,7 @@ main p:first-of-type:not(.summary-item-value) {
 	background-color: rgba(74, 184, 255, 0.1);
 }
 
-#performances {
+#performancesChart {
 	margin-left: 3.5%;
 	margin-right: 3.5%;
 }

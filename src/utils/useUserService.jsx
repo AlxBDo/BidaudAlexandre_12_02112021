@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import PropTypes from "prop-types"
 
-import userDataService from '../services/userDataService'
+import userService from '../services/userService'
 
-UserInformationCollector.propTypes = {
+const axios = require('axios').default;
+
+useUserService.propTypes = {
     userId : PropTypes.number.isRequired,
     dataFrom : PropTypes.string.isRequired
 }
@@ -16,7 +18,7 @@ UserInformationCollector.propTypes = {
  * @returns {object} objectReturn.data = { mainData: <object>, activity: <array>, sessions: <array>, keyData: <object>, performances: <object>, score: <number>}
  * @returns {boolean} objectReturn.error - An error has occurred ?
  */
-function UserInformationCollector(userId, dataFrom) {
+function useUserService(userId, dataFrom) {
     const [data, setData] = useState({})
     const [isLoading, setLoading] = useState(true)
     const [error, setError] = useState(false)
@@ -28,10 +30,19 @@ function UserInformationCollector(userId, dataFrom) {
         }
         switch(dataFrom){
             case "api" :
-                userDataService.getByIdApi(userId, {setData, setLoading, setError})
+                let setDataFromAPi = (userInfos, userActivity, userSessions, userKeyData, userPerformance, userScore) => {
+                    setData(userService.getDataObjectApi(userInfos, userActivity, userSessions, userKeyData, userPerformance, userScore))
+                    setLoading(false)
+                }
+                Promise.all(userService.getByIdApiRequest(userId).map(request => axios.get(request)))
+                    .then(axios.spread(setDataFromAPi))
+                    .catch((error) => {
+                        setError(true)
+                        console.error(error);
+                    });
                 break
             case "mock" : 
-                setData(userDataService.getByIdMocked(userId))
+                setData(userService.getByIdMocked(userId))
                 setLoading(false)
                 break
             default :
@@ -45,4 +56,4 @@ function UserInformationCollector(userId, dataFrom) {
     return { isLoading, data, error }
 }
 
-export default UserInformationCollector
+export default useUserService

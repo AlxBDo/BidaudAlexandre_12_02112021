@@ -1,32 +1,40 @@
-import React from "react";
-import PropTypes from "prop-types"
 import * as d3 from "d3";
 
-import {GraphicContainer}  from "../../utils/style";
-import {topRoundedColumn} from "./topRoundedColumn"
 
 /**
- * component for displaying user daily activity chart
- * @component
+ * draw rounded top edges at the bars of the graph
+ * @param {object} x - d3 object 
+ * @param {object} y - d3 object
+ * @param {number} height - svg height 
+ * @param {number} width - svg width 
+ * @returns {string} coordinates of the drawn element
+ */
+ const topRoundedColumn = function(x, y, height, width) {
+  const radius = width / 2;
+  const heightBeforeArc = height - radius;
+  return (
+    `M${x-11.76},${y} ` + // Mx,y Move the pen to(x, y)
+    `v-${heightBeforeArc} ` + // h<length> Draw a vertical line of length <height>px
+    `a ${radius},${radius} 0 0 1 ${radius},-${radius} ` + // arc
+    `a ${radius},${radius} 0 0 1 ${radius},${radius} ` +
+    `v${heightBeforeArc} ` +
+    `z` // close shape
+  );
+}
+
+
+/**
+ * create user daily activity chart
  * @param {array} data - array of objects containing the data needed for the daily activity graph
  * @example data : [ { day: <string>, kilogram : <integer>, calories : <integer>}]
- * @returns {object} GraphicContainer - styled component
+ * @param {number} height - chart height 
+ * @param {object} svg - svg contains chart
+ * @param {number} width - chart width
+ * @param {object} [margin] - contains attributes : marginTop, marginRight, marginBottom, marginLeft
  */
-function DailyActivityGraph({ data, dimensions }) {
-  const backgroundColor = "#FBFBFB"
-  const containerWidth = "96%"
-  const svgRef = React.useRef(null);
-  const { width, height, margin } = dimensions.calculate((0.9*0.60), 320, 0.05, 0.05, 0.05, 0.05);
-
-  React.useEffect(() => {
-    
-    // Create root container where we will append all other chart elements
-    const svgEl = d3.select(svgRef.current);
-    svgEl.selectAll("*").remove(); // Clear svg content before adding new elements 
-    const svg = svgEl
-      .append("g")
-      .attr("transform", `translate(5 ,${margin.top+margin.bottom})`);
-
+function dailyActivity(data, height, svg, width, margin) {
+  
+  svg.attr("transform", `translate(5 ,${margin.top+margin.bottom})`);
     let chartHeight = height * 0.85
 
     // Create axes
@@ -174,18 +182,6 @@ function DailyActivityGraph({ data, dimensions }) {
           .text(d);
 
       });
-    
-  }, [data, width, height, margin]); // Redraw chart if data changes
- 
-  return (
-    <GraphicContainer id="daily-activity-graph" $bgColor={backgroundColor} $width={containerWidth}>
-        <svg ref={svgRef} width={width} height={height} />
-    </GraphicContainer>
-  )
 };
-
-DailyActivityGraph.propTypes = {
-  data : PropTypes.array.isRequired
-}
  
-export default DailyActivityGraph;
+export default dailyActivity;

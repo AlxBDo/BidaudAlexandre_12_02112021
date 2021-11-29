@@ -1,5 +1,4 @@
 import { USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_MAIN_DATA, USER_PERFORMANCE } from "../datas/data"
-import userApiService from "./userApiService"
 
 /**
  * base of the url to access the user api
@@ -21,30 +20,6 @@ const getByIdApiRequest = userId => {
         `${baseUrlApi}/${userId}/performance`, 
         `${baseUrlApi}/${userId}/today-score` 
     ]
-}
-
-/**
- * retrieves user data from the API
- * @function
- * @param {number} userId - user identifier
- * @param {object} functionCallbackObject - contains callback functions call by userApiService
- */
-const getByIdApi = (userId, functionCallbackObject) => {
-    userApiService(
-        getByIdApiRequest(userId),
-        (userInfos, userActivity, userSessions, userKeyData, userPerformance, userScore) => { 
-            functionCallbackObject.setData(getDataObject(
-                userInfos.data.data.userInfos, 
-                userActivity.data.data.sessions,
-                userSessions.data.data.sessions,
-                userKeyData.data.data,
-                userPerformance.data.data,
-                userScore.data.data
-            ))
-            functionCallbackObject.setLoading(false)
-        },
-        functionCallbackObject.setError
-    )
 }
 
 /**
@@ -84,14 +59,35 @@ const getDataObject = (userInfos, userActivity, userSessions, userKeyData, userP
 }
 
 /**
+ * retrieves user data model
+ * @function
+ * @param {object} userInfos 
+ * @param {object} userActivity 
+ * @param {pbject} userSessions 
+ * @param {object} userKeyData 
+ * @param {object} userPerformance 
+ * @param {object} userScore 
+ * @returns {object} dataObject - cf getDataObject() function
+ */
+const getDataObjectApi = (userInfos, userActivity, userSessions, userKeyData, userPerformance, userScore) => {
+    return getDataObject(
+        userInfos.data.data.userInfos, 
+        userActivity.data.data.sessions,
+        userSessions.data.data.sessions,
+        userKeyData.data.data,
+        userPerformance.data.data,
+        userScore.data.data
+    )
+}
+
+/**
  * object containing user data collection functions
  */
-const userDataService = {
-    error: false,
-    setError : error => error ? true : false,
-    getByIdApi,
+const userService = {
+    getByIdApiRequest,
     getByIdMocked,
+    getDataObjectApi,
     getUsersMocked : () => { return USER_MAIN_DATA }
 }
 
-export default userDataService
+export default userService

@@ -2,13 +2,10 @@ import React from "react";
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import UserInformationCollector from "../../services/userInformationCollector";
+//import UserInformationCollector from "../../services/userInformationCollector";
+import useUserService from "../../utils/useUserService.jsx";
 import user from "../../models/user.js"
-import chartDimensions from "../../utils/chartDimensions";
-import DailyActivityGraph from '../../components/dailyActivityGraph';
-import AverageSessionsChart from '../../components/averageSessionsChart/index.jsx';
-import PerformancesChart from '../../components/performancesChart';
-import ScoreChart from '../../components/scoreChart';
+import Chart from "../../components/chart";
 import Summary from '../../components/summary';
 
 const ErrorMessage = styled.div`
@@ -47,7 +44,7 @@ const LoadingIcon = styled.p`
  */
 function Profil() {
     const { idUser, dataFrom } = useParams()
-    const { data, isLoading, error } = UserInformationCollector(parseInt(idUser), dataFrom)
+    const { data, isLoading, error } = useUserService(parseInt(idUser), dataFrom)
     const userObj = new user(idUser, data)  
     return(
         <main>
@@ -67,10 +64,10 @@ function Profil() {
                     <p>Félicitation ! Vous avez explosé vos objectifs hier 👏 </p>
                     <div id="dashboard">
                         <section id="graph">
-                            <DailyActivityGraph data= {userObj.getActivity()} dimensions={chartDimensions} />
-                            <AverageSessionsChart data={userObj.getAverageSessions()} dimensions={chartDimensions} />
-                            <PerformancesChart data={userObj.getPerformances()} dimensions={chartDimensions} />
-                            <ScoreChart data={userObj.getScore()} dimensions={chartDimensions} />
+                            <Chart name="dailyActivity" data={userObj.getActivity()} />
+                            <Chart name="averageSessions" data={userObj.getAverageSessions()} />
+                            <Chart name="performances" data={userObj.getPerformances()} />
+                            <Chart name="score" data={userObj.getScore()} />
                         </section>
                         <Summary 
                             calorie={userObj.getCalorieCount()} 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from "react-router-dom"
 
-import userDataService from '../../services/userDataService'
+import userService from '../../services/userService'
 
 /**
  * Component for displaying home page main element
@@ -36,7 +36,7 @@ function Home() {
             </p>
             <p>Choisissez un utilisateur pour accéder à son profil</p>
             <ul>
-                {userDataService.getUsersMocked().map((user)=>(
+                {userService.getUsersMocked().map((user)=>(
                     <li key={user.id}>
                         <Link to={`/profil/${user.id}/${dataFrom ? "api" : "mock"}`}>{user.userInfos.firstName}</Link>
                     </li>
