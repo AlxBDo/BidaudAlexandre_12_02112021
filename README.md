@@ -29,6 +29,7 @@ Alexandre Bidaud
 
 - [NodeJS (**version 12.18**)](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/)
+- Optional [User data API](https://github.com/OpenClassrooms-Student-Center/P9-front-end-dashboard) 
 
 If you are working with several versions of NodeJS, we recommend you install [nvm](https://github.com/nvm-sh/nvm). This tool will allow you to easily manage your NodeJS versions.
 
@@ -37,15 +38,19 @@ If you are working with several versions of NodeJS, we recommend you install [nv
 
 - Clone it on your computer :
 
-    * github 
+    * github -> green code button -> clone -> copy link
+
 ![ScreenShot](https://alxbdo.github.io/BidaudAlexandre_12_02112021/src/assets/clone_repo.jpg)
 
     * In your terminal
     ``` git clone https://github.com/AlxBDo/BidaudAlexandre_12_02112021.git ```
 
-- Install `npm`  : ``` npm install ```
+- `npm` installation : ``` npm install ```
 
-- Install `yarn` : ``` npm install yarn```
+- `yarn` installation : ``` npm install yarn```
+
+- Optional `User data API` installation : [API Readme.md](https://github.com/OpenClassrooms-Student-Center/P9-front-end-dashboard/blob/master/README.md) .
+If you don't use the API the app will only work with mocked data
 
 - Lunch the project : ``` yarn start ```
 

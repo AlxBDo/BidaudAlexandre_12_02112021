@@ -102,7 +102,7 @@ function Chart({ data, name }){
     const svgEl = d3.select(svgRef.current);
     const svg = svgEl.append("g");
 
-    chartFunction(data, height, svg, width, name  === "score" ? backgroundColor :margin)
+    chartFunction(data, height, svg, width, name  === "score" ? backgroundColor : margin)
 
   }, [backgroundColor, chartFunction, data, height, margin, name, svgRef, width]); // Redraw chart if data changes
  

@@ -6,7 +6,7 @@ import userService from '../../services/userService'
 /**
  * Component for displaying home page main element
  * @component
- * @returns {object} main html object
+ * @returns {object} <main> html object
  */
 function Home() {
     const [dataFrom, setDataFrom] = useState(false)
@@ -14,7 +14,7 @@ function Home() {
         <main>
             <p>Bienvenue sur le site de test de SportSee</p>
             <p>
-                Les données de l'utilisateur seront collectées à partir : 
+                Les données de l'utilisateur proviennent de : 
                 <input 
                     type="radio" 
                     name="data-from" 

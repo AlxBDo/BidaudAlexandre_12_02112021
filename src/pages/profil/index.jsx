@@ -2,7 +2,6 @@ import React from "react";
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-//import UserInformationCollector from "../../services/userInformationCollector";
 import useUserService from "../../utils/useUserService.jsx";
 import user from "../../models/user.js"
 import Chart from "../../components/chart";
