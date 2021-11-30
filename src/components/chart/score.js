@@ -29,7 +29,10 @@ var arc = d3.arc()
     .cornerRadius(50);
 
 // add title
-svg.append("text").text("Score").attr("transform", `translate(${-width*0.33}, ${-height*0.35})`)
+svg.append("text")
+.text("Score")
+.attr("transform", `translate(${-width*0.33}, ${-height*0.35})`)
+.style("font-size", width < 250 ? "small" : "medium")
 
 // add path and draw chart arcs
 svg.append("circle")

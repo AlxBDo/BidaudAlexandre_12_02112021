@@ -21,7 +21,9 @@ const MenuSection = styled.section`
     min-width: 100px;
     justify-content: flex-end;
     top: 70px;
-    height: 100%
+    height: 100%;
+    min-height: 800px;
+    padding-bottom: 5%
 `
 /**
  * Component for displaying lateral page menu

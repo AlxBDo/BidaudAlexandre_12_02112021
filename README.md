@@ -42,8 +42,8 @@ If you are working with several versions of NodeJS, we recommend you install [nv
 
 ![ScreenShot](https://alxbdo.github.io/BidaudAlexandre_12_02112021/src/assets/clone_repo.jpg)
 
-    * In your terminal
-    ``` git clone https://github.com/AlxBDo/BidaudAlexandre_12_02112021.git ```
+    * In your terminal 
+``` git clone https://github.com/AlxBDo/BidaudAlexandre_12_02112021.git ```
 
 - `npm` installation : ``` npm install ```
 
@@ -75,4 +75,4 @@ To retrieve user information, the project uses the endpoints below:
 
 ## 5. Documentation
 
-The documentation can be viewed by following the link below : [documentation](https://alxbdo.github.io/BidaudAlexandre_12_02112021-/sportsee/docs/index.html)
+The documentation can be viewed by following the link below : [documentation](https://alxbdo.github.io/BidaudAlexandre_12_02112021/docs/index.html)

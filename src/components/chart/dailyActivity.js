@@ -150,9 +150,7 @@ function dailyActivity(data, height, svg, width, margin) {
     .attr("width", 150)
     .style("transform", `translateY(-${chartHeight*0.025}px)`);
     title.append("text")
-    .text("Activité quotidienne")
-    .style("font-weight", "bold")
-    .style("font-size", "large");
+    .text("Activité quotidienne");
 
     // add legend   
     var legend = svg.append("g")
@@ -162,7 +160,7 @@ function dailyActivity(data, height, svg, width, margin) {
     .attr("height", 100)
     .attr("width", 100)
     .style("transform", `translate(-${width*0.15}px, -${chartHeight*0.05}px)`)
-    .style("font-size", width>600 ? null : "small");
+    .style("font-size", width>600 ? "small" : "x-small");
     legend.selectAll('g').data(["Poids (kg)", "Calories brûlées (kCal)"])
       .enter()
       .append('g')

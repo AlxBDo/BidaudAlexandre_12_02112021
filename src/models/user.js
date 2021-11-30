@@ -1,8 +1,8 @@
 import PropTypes from "prop-types"
 
 //EcmaScript 6 : POO (getter, setter)
-// user object class
-class user {
+// User object class
+class User {
 
     activity
     averageSessions
@@ -37,7 +37,7 @@ class user {
     /**
      * provides user activity
      * @method
-     * @memberof user
+     * @memberof User
      * @returns {object} data in JSON format
      * @example return { day: '2020-07-01', kilogram: 80, calories: 240 }
      */
@@ -46,7 +46,7 @@ class user {
     /**
      * provides user average sessions
      * @method
-     * @memberof user
+     * @memberof User
      * @returns {object} session - data in JSON format
      * @example return { day: 1, sessionLength: 30 }
      */
@@ -55,7 +55,7 @@ class user {
     /**
      * provides user calorie count
      * @method
-     * @memberof user
+     * @memberof User
      * @returns {number} calorie count
      */
     getCalorieCount(){ return this.keyData.calorieCount }
@@ -71,7 +71,7 @@ class user {
     /**
      * provides user performances
      * @method
-     * @memberof user
+     * @memberof User
      * @returns {object} performances - data in JSON format
      * @returns {number} performances.id - user id
      * @returns {object} performances.kind - { 1: 'cardio, 2: 'energy', 3: 'endurance', 4: 'strength', 5: 'speed', 6: 'intensity'}
@@ -82,7 +82,7 @@ class user {
     /**
      * provides user score
      * @method
-     * @memberof user
+     * @memberof User
      * @returns {number} - score
      * @example return 0.25
      */
@@ -91,7 +91,7 @@ class user {
     /**
      * provides user first name
      * @method
-     * @memberof user
+     * @memberof User
      * @returns {string} user first name
      */
     getFirstName(){ return this.mainData.firstName }
@@ -99,7 +99,7 @@ class user {
     /**
      * provides user lipid count
      * @method
-     * @memberof user
+     * @memberof User
      * @returns {number} lipid count
      */
     getLipidCount(){ return this.keyData.lipidCount }
@@ -107,7 +107,7 @@ class user {
     /**
      * provides user protein count
      * @method
-     * @memberof user
+     * @memberof User
      * @returns {number} protein count
      */
     getProteinCount(){ return this.keyData.proteinCount }
@@ -115,7 +115,7 @@ class user {
     /**
      * modify the value of attributes activity, averageSessions, keyData, mainData, performances, todayScore
      * @method
-     * @memberof user
+     * @memberof User
      * @param {object} data - contain user data 
      */
     setData(data){
@@ -130,16 +130,16 @@ class user {
     /**
      * modify the value of the id attribute
      * @method
-     * @memberof user
+     * @memberof User
      * @param {number} id - user id 
      */
     setId(id){ if(!isNaN(id)){ this.id = parseInt(id) } }
 
 }
 
-user.PropTypes = {
+User.PropTypes = {
     id : PropTypes.number.isRequired,
     data : PropTypes.object.isRequired
 }
 
-export default user
+export default User

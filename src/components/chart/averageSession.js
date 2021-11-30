@@ -165,9 +165,10 @@ function averageSessions( data, height, svg, width, margin ){
       }
     }
 
-    let titlePath = svg.append("text").attr("fill", "white").style("color", "white").attr("opacity", 0.5)
-    titlePath.append("tspan").text(chartTitle[0]).attr("y", 20).attr("x", 50)
-    titlePath.append("tspan").text(chartTitle[1]).attr("x", 50).attr("dy", "1.95em")
+    let titlePath = svg.append("text").attr("fill", "white").attr("opacity", 0.5)
+    .style("color", "white").style("font-size", width < 250 ? "small" : "medium")
+    titlePath.append("tspan").text(chartTitle[0]).attr("y", 30).attr("x", 50)
+    titlePath.append("tspan").text(chartTitle[1]).attr("x", 50).attr("dy", "1.5em")
 }
 
 export default averageSessions;

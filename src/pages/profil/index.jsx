@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import useUserService from "../../utils/useUserService.jsx";
-import user from "../../models/user.js"
+import User from "../../models/User.js"
 import Chart from "../../components/chart";
 import Summary from '../../components/summary';
 
@@ -44,7 +44,7 @@ const LoadingIcon = styled.p`
 function Profil() {
     const { idUser, dataFrom } = useParams()
     const { data, isLoading, error } = useUserService(parseInt(idUser), dataFrom)
-    const userObj = new user(idUser, data)  
+    const userObj = new User(idUser, data)  
     return(
         <main>
             {error ? (

@@ -50,20 +50,12 @@ function getChartConst(
  * @param {string} chartName 
  * @returns {object} constants - @see getChartConst()
  */
-function chartParamManager(chartName){
-  switch(chartName){
-    case "averageSessions" : 
-      return getChartConst("#F00", averageSessions, 31, "width", 0.9*0.7*0.31 )
-    case "dailyActivity" : 
-      return getChartConst("#FBFBFB", dailyActivity, "96%", 320, 0.9*0.6, 0.05, 0.05, 0.05, 0.05 )
-    case "performances" : 
-      return getChartConst("rgba(40, 45, 48, 1)", performances, 31, "width", 0.9*0.7*0.31, 0.01, 0.01, 0.01, 0.01 )
-    case "score" : 
-      return getChartConst("rgba(251, 251, 251, 1)", score, 31, "width", 0.9*0.7*0.31, 0.05, 0.05, 0.05, 0.05 )
-    default : 
-      console.error(`No parameter found for the graph ${chartName}`)
-  }
-} 
+const chartParams = {
+  averageSessions: getChartConst("#F00", averageSessions, 31, "width", 0.9*0.7*0.31 ),
+  dailyActivity: getChartConst("#FBFBFB", dailyActivity, "96%", 320, 0.9*0.6, 0.05, 0.05, 0.05, 0.05 ),
+  performances: getChartConst("rgba(40, 45, 48, 1)", performances, 31, "width", 0.9*0.7*0.31, 0.01, 0.01, 0.01, 0.01 ),
+  score: getChartConst("rgba(251, 251, 251, 1)", score, 31, "width", 0.9*0.7*0.31, 0.05, 0.05, 0.05, 0.05 ),
+}
 
 
 Chart.propTypes = {
@@ -84,7 +76,9 @@ Chart.propTypes = {
  */
 function Chart({ data, name }){  
 
-  const {backgroundColor, chartFunction, containerWidth, dimensions} = chartParamManager(name)
+  if(!chartParams.hasOwnProperty(name)){ console.error(`No parameter found for the graph ${name}`) }
+  
+  const {backgroundColor, chartFunction, containerWidth, dimensions} = chartParams[name]
   const { width, height, margin } = chartDimensions.calculate(
       dimensions.width, 
       dimensions.height,

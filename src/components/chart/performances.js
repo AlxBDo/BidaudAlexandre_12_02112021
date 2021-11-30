@@ -67,7 +67,7 @@ function performances(data, height, svg, width, margin ){
         .attr("fill", "white")
         .attr("class", "categories")
         .attr('text-anchor', i === 0 || i === 3 ? 'middle' : i < 3 ? "start" : "end")
-        .attr('transform', `translate(0, -${r + 10}) rotate(${i * -60}) ${width < 200 ? " scale(0.9)" : null}`)
+        .attr('transform', `translate(0, -${r + 10}) rotate(${i * -60}) ${width < 200 ? " scale(0.9)" : ""}`)
     })
 
     // Line for the base stats of Snorlax
