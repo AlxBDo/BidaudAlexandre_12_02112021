@@ -4,7 +4,7 @@
  * @version 1.0 
  * 
  * @file The SportSee app measures your performance and fitness indicators so you can track your physical activity. 
- * see [SportSee diagram]{@link https://github.com/AlxBDo/BidaudAlexandre_12_02112021/docs/SportSee_diagram.png }
+ * For more information you can see : [SportSee diagram]{@link https://alxbdo.github.io/BidaudAlexandre_12_02112021/docs/SportSee_diagram.png }
  */
 
 import React from 'react';
