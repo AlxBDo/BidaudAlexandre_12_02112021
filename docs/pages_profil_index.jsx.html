@@ -29,7 +29,7 @@
     
     <input type="text" id="nav-search" placeholder="Search" />
     
-    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="user.html">user</a><ul class='methods'><li data-type='method' style='display: none;'><a href="user.html#getActivity">getActivity</a></li><li data-type='method' style='display: none;'><a href="user.html#getAverageSessions">getAverageSessions</a></li><li data-type='method' style='display: none;'><a href="user.html#getCalorieCount">getCalorieCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getCarbohydrateCount">getCarbohydrateCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getFirstName">getFirstName</a></li><li data-type='method' style='display: none;'><a href="user.html#getLipidCount">getLipidCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getPerformances">getPerformances</a></li><li data-type='method' style='display: none;'><a href="user.html#getProteinCount">getProteinCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getScore">getScore</a></li><li data-type='method' style='display: none;'><a href="user.html#setData">setData</a></li><li data-type='method' style='display: none;'><a href="user.html#setId">setId</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addTooltip">addTooltip</a></li><li><a href="global.html#AverageSessionsChart">AverageSessionsChart</a></li><li><a href="global.html#chartDimensions">chartDimensions</a></li><li><a href="global.html#DailyActivityGraph">DailyActivityGraph</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#linkGenerator">linkGenerator</a></li><li><a href="global.html#PageMenu">PageMenu</a></li><li><a href="global.html#PerformancesChart">PerformancesChart</a></li><li><a href="global.html#Profil">Profil</a></li><li><a href="global.html#ScoreChart">ScoreChart</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#summaryItem">summaryItem</a></li><li><a href="global.html#topRoundedColumn">topRoundedColumn</a></li><li><a href="global.html#UserInformationCollector">UserInformationCollector</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/AlxBDo/BidaudAlexandre_12_02112021-.git" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="user.html">user</a><ul class='methods'><li data-type='method' style='display: none;'><a href="user.html#getActivity">getActivity</a></li><li data-type='method' style='display: none;'><a href="user.html#getAverageSessions">getAverageSessions</a></li><li data-type='method' style='display: none;'><a href="user.html#getCalorieCount">getCalorieCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getCarbohydrateCount">getCarbohydrateCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getFirstName">getFirstName</a></li><li data-type='method' style='display: none;'><a href="user.html#getLipidCount">getLipidCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getPerformances">getPerformances</a></li><li data-type='method' style='display: none;'><a href="user.html#getProteinCount">getProteinCount</a></li><li data-type='method' style='display: none;'><a href="user.html#getScore">getScore</a></li><li data-type='method' style='display: none;'><a href="user.html#setData">setData</a></li><li data-type='method' style='display: none;'><a href="user.html#setId">setId</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addTooltip">addTooltip</a></li><li><a href="global.html#averageSessions">averageSessions</a></li><li><a href="global.html#baseUrlApi">baseUrlApi</a></li><li><a href="global.html#Chart">Chart</a></li><li><a href="global.html#chartDimensions">chartDimensions</a></li><li><a href="global.html#chartParamManager">chartParamManager</a></li><li><a href="global.html#dailyActivity">dailyActivity</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#getByIdApiRequest">getByIdApiRequest</a></li><li><a href="global.html#getByIdMocked">getByIdMocked</a></li><li><a href="global.html#getChartConst">getChartConst</a></li><li><a href="global.html#getDataObject">getDataObject</a></li><li><a href="global.html#getDataObjectApi">getDataObjectApi</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#linkGenerator">linkGenerator</a></li><li><a href="global.html#PageMenu">PageMenu</a></li><li><a href="global.html#performances">performances</a></li><li><a href="global.html#Profil">Profil</a></li><li><a href="global.html#score">score</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#summaryItem">summaryItem</a></li><li><a href="global.html#topRoundedColumn">topRoundedColumn</a></li><li><a href="global.html#userService">userService</a></li><li><a href="global.html#useUserService">useUserService</a></li></ul>
 </nav>
 
 <div id="main">
@@ -48,13 +48,9 @@
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import UserInformationCollector from '../../utils/hooks'
-import user from "../../utils/user.js"
-import chartDimensions from "../../utils/chartDimensions";
-import DailyActivityGraph from '../../components/dailyActivityGraph';
-import AverageSessionsChart from '../../components/averageSessionsChart/index.jsx';
-import PerformancesChart from '../../components/performancesChart';
-import ScoreChart from '../../components/scoreChart';
+import useUserService from "../../utils/useUserService.jsx";
+import user from "../../models/user.js"
+import Chart from "../../components/chart";
 import Summary from '../../components/summary';
 
 const ErrorMessage = styled.div`
@@ -67,7 +63,7 @@ const ErrorMessage = styled.div`
     line-height: 1.5em;
 `
 const LoadingMessage = styled.div`
-    color: lightgreen;
+    color: #FF0101;
     font-size: x-large;
     font-weight: 500;
     text-align: center;
@@ -75,7 +71,7 @@ const LoadingMessage = styled.div`
 `
 
 const LoadingIcon = styled.p`
-    border: 10px solid lightgreen;
+    border: 10px solid #FF0101;
 	height: 50px;
 	width: 50px;
 	border-radius: 100px;
@@ -88,11 +84,12 @@ const LoadingIcon = styled.p`
  * Component for displaying user activity dashboard
  * @component
  * @param {number} idUser - user id 
+ * @param {string} dataFrom - data source : api or mock
  * @returns {object} main dom object
  */
 function Profil() {
-    const { idUser } = useParams()
-    const { data, isLoading, error } = UserInformationCollector(idUser)
+    const { idUser, dataFrom } = useParams()
+    const { data, isLoading, error } = useUserService(parseInt(idUser), dataFrom)
     const userObj = new user(idUser, data)  
     return(
         &lt;main>
@@ -108,14 +105,14 @@ function Profil() {
                 &lt;/LoadingMessage>
             ) : (
                 &lt;div>
-                    &lt;h1>Bonjour {!isLoading ? (&lt;span>{userObj.getFirstName()}&lt;/span>) : null}&lt;/h1>
+                    &lt;h1>Bonjour &lt;span>{userObj.getFirstName()}&lt;/span>&lt;/h1>
                     &lt;p>Félicitation ! Vous avez explosé vos objectifs hier 👏 &lt;/p>
                     &lt;div id="dashboard">
                         &lt;section id="graph">
-                            &lt;DailyActivityGraph data= {userObj.getActivity()} dimensions={chartDimensions} />
-                            &lt;AverageSessionsChart data={userObj.getAverageSessions()} dimensions={chartDimensions} />
-                            &lt;PerformancesChart data={userObj.getPerformances()} dimensions={chartDimensions} />
-                            &lt;ScoreChart data={userObj.getScore()} dimensions={chartDimensions} />
+                            &lt;Chart name="dailyActivity" data={userObj.getActivity()} />
+                            &lt;Chart name="averageSessions" data={userObj.getAverageSessions()} />
+                            &lt;Chart name="performances" data={userObj.getPerformances()} />
+                            &lt;Chart name="score" data={userObj.getScore()} />
                         &lt;/section>
                         &lt;Summary 
                             calorie={userObj.getCalorieCount()} 
@@ -145,7 +142,7 @@ export default Profil</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Nov 19 2021 18:01:55 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Tue Nov 30 2021 11:36:12 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

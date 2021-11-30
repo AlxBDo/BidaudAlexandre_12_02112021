@@ -48,7 +48,7 @@ function getChartConst(
 /**
  * provides charts parameters 
  * @param {string} chartName 
- * @returns {object} constants - cf getChartConst function return
+ * @returns {object} constants - @see getChartConst()
  */
 function chartParamManager(chartName){
   switch(chartName){

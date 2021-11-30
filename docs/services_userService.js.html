@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>components/summary/index.jsx - Documentation</title>
+    <title>services/userService.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -34,7 +34,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/summary/index.jsx</h1>
+    <h1 class="page-title">services/userService.js</h1>
     
 
     
@@ -44,86 +44,99 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from "react";
-import PropTypes from "prop-types"
-
-import calorieIcon from "../../assets/calories_icon.png"
-import glucidIcon from "../../assets/glucides_icon.png"
-import lipidIcon from "../../assets/lipides_icon.png"
-import proteinIcon from "../../assets/proteines_icon.png"
-
+            <pre class="prettyprint source linenums"><code>import { USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_MAIN_DATA, USER_PERFORMANCE } from "../datas/data"
 
 /**
- * display summary item
- * @param {string} name - summary item name
- * @param {number} value - summary item value
- * @returns {object} summary item dom element
+ * base of the url to access the user api
  */
-function summaryItem(name, value){
-    let unit = "g"
-    let srcImg
-    switch(name){
-        case "Calories" :
-            srcImg = calorieIcon
-            unit = "kCal"
-            value = value.toFixed(3)
-            break
-        case "Glucides" :
-            srcImg = glucidIcon
-            break
-        case "Lipides" :
-            srcImg = lipidIcon
-            break
-        default :
-            srcImg = proteinIcon
-            break   
+const baseUrlApi = `http://localhost:3000/user`
+
+/**
+ * urls array used to retrieve user data from the API
+ * @function
+ * @param {number} userId - identifier of the user whose data is to be recovered
+ * @returns {array} api urls array
+ */
+const getByIdApiRequest = userId => {
+    return  [
+        `${baseUrlApi}/${userId}`, 
+        `${baseUrlApi}/${userId}/activity`, 
+        `${baseUrlApi}/${userId}/average-sessions`, 
+        `${baseUrlApi}/${userId}/key-data`, 
+        `${baseUrlApi}/${userId}/performance`, 
+        `${baseUrlApi}/${userId}/today-score` 
+    ]
+}
+
+/**
+ * retrieves user data mocked
+ * @function
+ * @param {number} userId - user identifier
+ */
+const getByIdMocked = userId => getDataObject(
+    USER_MAIN_DATA.filter(user => user.id === userId)[0].userInfos, 
+    USER_ACTIVITY.filter(session => session.userId === userId)[0].sessions,
+    USER_AVERAGE_SESSIONS.filter(session => session.userId === userId)[0].sessions,
+    USER_MAIN_DATA.filter(user => user.id === userId)[0].keyData,
+    USER_PERFORMANCE.filter(perf => perf.userId === userId)[0],
+    USER_MAIN_DATA.filter(user => user.id === userId)[0].todayScore
+)
+
+/**
+ * groups the collected data into an object
+ * @function
+ * @param {object} userInfos 
+ * @param {object} userActivity 
+ * @param {pbject} userSessions 
+ * @param {object} userKeyData 
+ * @param {object} userPerformance 
+ * @param {object} userScore 
+ * @returns {object} user data object = { mainData, activity, sessions, keyData, performances, score }
+ */
+const getDataObject = (userInfos, userActivity, userSessions, userKeyData, userPerformance, userScore) => {
+    return {
+        mainData: userInfos, 
+        activity: userActivity,
+        sessions: userSessions,
+        keyData: userKeyData,
+        performances: userPerformance,
+        score: userScore
     }
-    return(
-        &lt;div id={name.toLowerCase()} className="summaryItem">
-            &lt;div>&lt;img src={srcImg} alt="" />&lt;/div>
-            &lt;div>
-                &lt;p className="summary-item-value">{value}{unit}&lt;/p>
-                &lt;p>{name}&lt;/p>
-            &lt;/div>
-        &lt;/div>
+}
+
+/**
+ * retrieves user data model
+ * @function
+ * @param {object} userInfos 
+ * @param {object} userActivity 
+ * @param {pbject} userSessions 
+ * @param {object} userKeyData 
+ * @param {object} userPerformance 
+ * @param {object} userScore 
+ * @returns {object} dataObject - @see getDataObject()
+ */
+const getDataObjectApi = (userInfos, userActivity, userSessions, userKeyData, userPerformance, userScore) => {
+    return getDataObject(
+        userInfos.data.data.userInfos, 
+        userActivity.data.data.sessions,
+        userSessions.data.data.sessions,
+        userKeyData.data.data,
+        userPerformance.data.data,
+        userScore.data.data
     )
 }
 
 /**
- * component for displaying summary of user indicators
- * @component
- * @param {object} props 
- * @param {number} props.calorie - user calorie count
- * @param {number} props.protein - user protein count
- * @param {number} props.glucid - user glucid count
- * @param {number} props.lipid - user lipid count
- * @returns {object} section contain summary
+ * object containing user data collection functions
  */
-function Summary(props){
-    const {calorie, glucid, lipid, protein} = props
-    return(
-        &lt;section id="summary">
-            {summaryItem("Calories", calorie/1000)}
-            {summaryItem("Proteines", protein)}
-            {summaryItem("Glucides", glucid)}
-            {summaryItem("Lipides", lipid)}
-        &lt;/section>
-    )
+const userService = {
+    getByIdApiRequest,
+    getByIdMocked,
+    getDataObjectApi,
+    getUsersMocked : () => { return USER_MAIN_DATA }
 }
 
-summaryItem.propTypes = {
-  name : PropTypes.string.isRequired,
-  value : PropTypes.number.isRequired
-}
-
-Summary.propTypes = {
-    calorie : PropTypes.number.isRequired, 
-    protein : PropTypes.number.isRequired, 
-    glucid : PropTypes.number.isRequired, 
-    lipid : PropTypes.number.isRequired
-}
-
-export default Summary</code></pre>
+export default userService</code></pre>
         </article>
     </section>
 

@@ -1,16 +1,16 @@
 {
     "source": {
         "include": [
-            "src/components/averageSessionsChart", 
-            "src/components/dailyActivityGraph",  
+            "src/index.js",
+            "src/components/chart",  
             "src/components/header", 
             "src/components/pageMenu", 
-            "src/components/performancesChart", 
-            "src/components/scoreChart", 
-            "src/components/summary",
+            "src/components/summary", 
+            "src/models",
             "src/pages/error",
             "src/pages/home",
             "src/pages/profil", 
+            "src/services", 
             "src/utils"
         ],
         "includePattern": ".+\\.js(doc|x)?$",

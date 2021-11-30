@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>components/summary/index.jsx - Documentation</title>
+    <title>utils/useUserService.jsx - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -34,7 +34,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/summary/index.jsx</h1>
+    <h1 class="page-title">utils/useUserService.jsx</h1>
     
 
     
@@ -44,86 +44,65 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from "react";
+            <pre class="prettyprint source linenums"><code>import { useState, useEffect } from 'react'
 import PropTypes from "prop-types"
 
-import calorieIcon from "../../assets/calories_icon.png"
-import glucidIcon from "../../assets/glucides_icon.png"
-import lipidIcon from "../../assets/lipides_icon.png"
-import proteinIcon from "../../assets/proteines_icon.png"
+import userService from '../services/userService'
 
+const axios = require('axios').default;
 
-/**
- * display summary item
- * @param {string} name - summary item name
- * @param {number} value - summary item value
- * @returns {object} summary item dom element
- */
-function summaryItem(name, value){
-    let unit = "g"
-    let srcImg
-    switch(name){
-        case "Calories" :
-            srcImg = calorieIcon
-            unit = "kCal"
-            value = value.toFixed(3)
-            break
-        case "Glucides" :
-            srcImg = glucidIcon
-            break
-        case "Lipides" :
-            srcImg = lipidIcon
-            break
-        default :
-            srcImg = proteinIcon
-            break   
-    }
-    return(
-        &lt;div id={name.toLowerCase()} className="summaryItem">
-            &lt;div>&lt;img src={srcImg} alt="" />&lt;/div>
-            &lt;div>
-                &lt;p className="summary-item-value">{value}{unit}&lt;/p>
-                &lt;p>{name}&lt;/p>
-            &lt;/div>
-        &lt;/div>
-    )
+useUserService.propTypes = {
+    userId : PropTypes.number.isRequired,
+    dataFrom : PropTypes.string.isRequired
 }
 
 /**
- * component for displaying summary of user indicators
- * @component
- * @param {object} props 
- * @param {number} props.calorie - user calorie count
- * @param {number} props.protein - user protein count
- * @param {number} props.glucid - user glucid count
- * @param {number} props.lipid - user lipid count
- * @returns {object} section contain summary
+ * Retrieves user information
+ * @param {integer} userId - user id 
+ * @returns {object} {isLoading, data, error} contain data request 
+ * @returns {boolean} objectReturn.isLoading - data is loading ?
+ * @returns {object} objectReturn.data = { mainData: &lt;object>, activity: &lt;array>, sessions: &lt;array>, keyData: &lt;object>, performances: &lt;object>, score: &lt;number>}
+ * @returns {boolean} objectReturn.error - An error has occurred ?
  */
-function Summary(props){
-    const {calorie, glucid, lipid, protein} = props
-    return(
-        &lt;section id="summary">
-            {summaryItem("Calories", calorie/1000)}
-            {summaryItem("Proteines", protein)}
-            {summaryItem("Glucides", glucid)}
-            {summaryItem("Lipides", lipid)}
-        &lt;/section>
-    )
+function useUserService(userId, dataFrom) {
+    const [data, setData] = useState({})
+    const [isLoading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
+    
+    useEffect(() => {
+        if (!userId){ 
+            console.error("User ID is missing to perform the request !")
+            return setError(true) 
+        }
+        switch(dataFrom){
+            case "api" :
+                let setDataFromAPi = (userInfos, userActivity, userSessions, userKeyData, userPerformance, userScore) => {
+                    setData(userService.getDataObjectApi(userInfos, userActivity, userSessions, userKeyData, userPerformance, userScore))
+                    setLoading(false)
+                }
+                Promise.all(userService.getByIdApiRequest(userId).map(request => axios.get(request)))
+                    .then(axios.spread(setDataFromAPi))
+                    .catch((error) => {
+                        setError(true)
+                        console.error(error);
+                    });
+                break
+            case "mock" : 
+                setData(userService.getByIdMocked(userId))
+                setLoading(false)
+                break
+            default :
+            console.error(
+                "in the absence of the dataFrom parameter, it is impossible to know where to retrieve the user's data !"
+            )
+            setError(true) 
+        }
+    }, [userId, dataFrom])
+    
+    return { isLoading, data, error }
 }
 
-summaryItem.propTypes = {
-  name : PropTypes.string.isRequired,
-  value : PropTypes.number.isRequired
-}
-
-Summary.propTypes = {
-    calorie : PropTypes.number.isRequired, 
-    protein : PropTypes.number.isRequired, 
-    glucid : PropTypes.number.isRequired, 
-    lipid : PropTypes.number.isRequired
-}
-
-export default Summary</code></pre>
+export default useUserService</code></pre>
         </article>
     </section>
 

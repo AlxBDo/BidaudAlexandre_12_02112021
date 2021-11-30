@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>components/summary/index.jsx - Documentation</title>
+    <title>components/chart/index.jsx - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -34,7 +34,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/summary/index.jsx</h1>
+    <h1 class="page-title">components/chart/index.jsx</h1>
     
 
     
@@ -47,83 +47,119 @@
             <pre class="prettyprint source linenums"><code>import React from "react";
 import PropTypes from "prop-types"
 
-import calorieIcon from "../../assets/calories_icon.png"
-import glucidIcon from "../../assets/glucides_icon.png"
-import lipidIcon from "../../assets/lipides_icon.png"
-import proteinIcon from "../../assets/proteines_icon.png"
+import * as d3 from "d3";
+
+import chartDimensions from "../../utils/chartDimensions";
+import {GraphicContainer}  from "../../utils/style";
+import averageSessions from "./averageSession";
+import dailyActivity from "./dailyActivity";
+import performances from "./performances";
+import score from "./score"
 
 
 /**
- * display summary item
- * @param {string} name - summary item name
- * @param {number} value - summary item value
- * @returns {object} summary item dom element
+ * provides the constants needed to create the chart
+ * @param {string} backgroundColor - chart container background
+ * @param {function} chartFunction - function called to create chart
+ * @param {number} containerWidth 
+ * @param {number} height 
+ * @param {number} width 
+ * @param {number} marginTop 
+ * @param {number} marginRight 
+ * @param {number} marginBottom 
+ * @param {number} marginLeft 
+ * @returns {object} constants
+ * @example { backgroundColor, chartFunction, containerWidth, dimensions }
+ * @returns {object} constants.dimensions - contains attributes : marginTop, marginRight, marginBottom, marginLeft
  */
-function summaryItem(name, value){
-    let unit = "g"
-    let srcImg
-    switch(name){
-        case "Calories" :
-            srcImg = calorieIcon
-            unit = "kCal"
-            value = value.toFixed(3)
-            break
-        case "Glucides" :
-            srcImg = glucidIcon
-            break
-        case "Lipides" :
-            srcImg = lipidIcon
-            break
-        default :
-            srcImg = proteinIcon
-            break   
-    }
-    return(
-        &lt;div id={name.toLowerCase()} className="summaryItem">
-            &lt;div>&lt;img src={srcImg} alt="" />&lt;/div>
-            &lt;div>
-                &lt;p className="summary-item-value">{value}{unit}&lt;/p>
-                &lt;p>{name}&lt;/p>
-            &lt;/div>
-        &lt;/div>
-    )
+function getChartConst(
+  backgroundColor, 
+  chartFunction,
+  containerWidth, 
+  height, 
+  width, 
+  marginTop, 
+  marginRight, 
+  marginBottom, 
+  marginLeft
+){
+  const dimensions = { width: width, height: height}
+  if(marginTop) { dimensions.marginTop = marginTop}
+  if(marginRight) { dimensions.marginRight = marginRight}
+  if(marginBottom) { dimensions.marginBottom = marginBottom}
+  if(marginLeft) { dimensions.marginLeft = marginLeft}
+  return { backgroundColor, chartFunction, containerWidth, dimensions }
 }
 
 /**
- * component for displaying summary of user indicators
+ * provides charts parameters 
+ * @param {string} chartName 
+ * @returns {object} constants - @see getChartConst()
+ */
+function chartParamManager(chartName){
+  switch(chartName){
+    case "averageSessions" : 
+      return getChartConst("#F00", averageSessions, 31, "width", 0.9*0.7*0.31 )
+    case "dailyActivity" : 
+      return getChartConst("#FBFBFB", dailyActivity, "96%", 320, 0.9*0.6, 0.05, 0.05, 0.05, 0.05 )
+    case "performances" : 
+      return getChartConst("rgba(40, 45, 48, 1)", performances, 31, "width", 0.9*0.7*0.31, 0.01, 0.01, 0.01, 0.01 )
+    case "score" : 
+      return getChartConst("rgba(251, 251, 251, 1)", score, 31, "width", 0.9*0.7*0.31, 0.05, 0.05, 0.05, 0.05 )
+    default : 
+      console.error(`No parameter found for the graph ${chartName}`)
+  }
+} 
+
+
+Chart.propTypes = {
+  data : PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.number,
+    PropTypes.array
+  ]),
+  name : PropTypes.string.isRequired
+}
+
+/**
+ * display chart
  * @component
- * @param {object} props 
- * @param {number} props.calorie - user calorie count
- * @param {number} props.protein - user protein count
- * @param {number} props.glucid - user glucid count
- * @param {number} props.lipid - user lipid count
- * @returns {object} section contain summary
+ * @param {array} data - array of objects with day and sessionLength attributes
+ * @param {string} name - chart name
+ * @returns {object} GraphicContainer - styled component
  */
-function Summary(props){
-    const {calorie, glucid, lipid, protein} = props
-    return(
-        &lt;section id="summary">
-            {summaryItem("Calories", calorie/1000)}
-            {summaryItem("Proteines", protein)}
-            {summaryItem("Glucides", glucid)}
-            {summaryItem("Lipides", lipid)}
-        &lt;/section>
-    )
-}
+function Chart({ data, name }){  
 
-summaryItem.propTypes = {
-  name : PropTypes.string.isRequired,
-  value : PropTypes.number.isRequired
-}
+  const {backgroundColor, chartFunction, containerWidth, dimensions} = chartParamManager(name)
+  const { width, height, margin } = chartDimensions.calculate(
+      dimensions.width, 
+      dimensions.height,
+      dimensions.marginTop ? dimensions.marginTop : null,
+      dimensions.marginRight ? dimensions.marginRight : null,
+      dimensions.marginBottom ? dimensions.marginBottom : null,
+      dimensions.marginLeft ? dimensions.marginLeft : null,
+  )
 
-Summary.propTypes = {
-    calorie : PropTypes.number.isRequired, 
-    protein : PropTypes.number.isRequired, 
-    glucid : PropTypes.number.isRequired, 
-    lipid : PropTypes.number.isRequired
-}
+  const svgRef = React.useRef(null)
+ 
+  React.useEffect(() => {
+    
+    // Create root container where we will append chart
+    const svgEl = d3.select(svgRef.current);
+    const svg = svgEl.append("g");
 
-export default Summary</code></pre>
+    chartFunction(data, height, svg, width, name  === "score" ? backgroundColor : margin)
+
+  }, [backgroundColor, chartFunction, data, height, margin, name, svgRef, width]); // Redraw chart if data changes
+ 
+  return (
+    &lt;GraphicContainer id={`${name}Chart`} $bgColor={backgroundColor} $width={containerWidth}>
+        &lt;svg ref={svgRef} width={width} height={height} />
+    &lt;/GraphicContainer>
+  )
+};
+
+export default Chart;</code></pre>
         </article>
     </section>
 

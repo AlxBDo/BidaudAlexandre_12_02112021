@@ -62,11 +62,12 @@ function performances(data, height, svg, width, margin ){
         // Add a text label for each axis
         g.append('text')
         .text(dimension)
-        .style("font-size", width < 200 ? "x-small" : "small")
+        .style("font-size", width < 250 ? "x-small" : "small")
+        .style("font-weight", width < 250 ? 500 : 700)
         .attr("fill", "white")
         .attr("class", "categories")
         .attr('text-anchor', i === 0 || i === 3 ? 'middle' : i < 3 ? "start" : "end")
-        .attr('transform', `translate(0, -${r + 10}) rotate(${i * -60})`)
+        .attr('transform', `translate(0, -${r + 10}) rotate(${i * -60}) ${width < 200 ? " scale(0.9)" : null}`)
     })
 
     // Line for the base stats of Snorlax

@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>components/summary/index.jsx - Documentation</title>
+    <title>index.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -34,7 +34,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">components/summary/index.jsx</h1>
+    <h1 class="page-title">index.js</h1>
     
 
     
@@ -44,86 +44,49 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from "react";
-import PropTypes from "prop-types"
-
-import calorieIcon from "../../assets/calories_icon.png"
-import glucidIcon from "../../assets/glucides_icon.png"
-import lipidIcon from "../../assets/lipides_icon.png"
-import proteinIcon from "../../assets/proteines_icon.png"
-
-
-/**
- * display summary item
- * @param {string} name - summary item name
- * @param {number} value - summary item value
- * @returns {object} summary item dom element
+            <pre class="prettyprint source linenums"><code>/**
+ * @name SportSee
+ * @author Alexandre Bidaud 
+ * @version 1.0 
+ * 
+ * @file The SportSee app measures your performance and fitness indicators so you can track your physical activity. 
+ * see [SportSee diagram]{@link https://github.com/AlxBDo/BidaudAlexandre_12_02112021/docs/SportSee_diagram.png }
  */
-function summaryItem(name, value){
-    let unit = "g"
-    let srcImg
-    switch(name){
-        case "Calories" :
-            srcImg = calorieIcon
-            unit = "kCal"
-            value = value.toFixed(3)
-            break
-        case "Glucides" :
-            srcImg = glucidIcon
-            break
-        case "Lipides" :
-            srcImg = lipidIcon
-            break
-        default :
-            srcImg = proteinIcon
-            break   
-    }
-    return(
-        &lt;div id={name.toLowerCase()} className="summaryItem">
-            &lt;div>&lt;img src={srcImg} alt="" />&lt;/div>
-            &lt;div>
-                &lt;p className="summary-item-value">{value}{unit}&lt;/p>
-                &lt;p>{name}&lt;/p>
-            &lt;/div>
-        &lt;/div>
-    )
-}
 
-/**
- * component for displaying summary of user indicators
- * @component
- * @param {object} props 
- * @param {number} props.calorie - user calorie count
- * @param {number} props.protein - user protein count
- * @param {number} props.glucid - user glucid count
- * @param {number} props.lipid - user lipid count
- * @returns {object} section contain summary
- */
-function Summary(props){
-    const {calorie, glucid, lipid, protein} = props
-    return(
-        &lt;section id="summary">
-            {summaryItem("Calories", calorie/1000)}
-            {summaryItem("Proteines", protein)}
-            {summaryItem("Glucides", glucid)}
-            {summaryItem("Lipides", lipid)}
-        &lt;/section>
-    )
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-summaryItem.propTypes = {
-  name : PropTypes.string.isRequired,
-  value : PropTypes.number.isRequired
-}
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 
-Summary.propTypes = {
-    calorie : PropTypes.number.isRequired, 
-    protein : PropTypes.number.isRequired, 
-    glucid : PropTypes.number.isRequired, 
-    lipid : PropTypes.number.isRequired
-}
+import Header from './components/header';
+import PageMenu from './components/pageMenu';
+import Home from './pages/home';
+import Profil from './pages/profil'
+import Error from './pages/error'
 
-export default Summary</code></pre>
+
+ReactDOM.render(
+  &lt;React.StrictMode>
+    &lt;Router>
+      &lt;Header />
+      &lt;PageMenu />
+      &lt;Switch>
+        &lt;Route exact path="/">&lt;Home />&lt;/Route>
+        &lt;Route path="/Profil/:idUser/:dataFrom">&lt;Profil />&lt;/Route>
+        &lt;Route path="*">&lt;Error />&lt;/Route>
+      &lt;/Switch>
+    &lt;/Router>
+  &lt;/React.StrictMode>,
+  document.getElementById('root')
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+</code></pre>
         </article>
     </section>
 

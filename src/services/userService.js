@@ -67,7 +67,7 @@ const getDataObject = (userInfos, userActivity, userSessions, userKeyData, userP
  * @param {object} userKeyData 
  * @param {object} userPerformance 
  * @param {object} userScore 
- * @returns {object} dataObject - cf getDataObject() function
+ * @returns {object} dataObject - @see getDataObject()
  */
 const getDataObjectApi = (userInfos, userActivity, userSessions, userKeyData, userPerformance, userScore) => {
     return getDataObject(

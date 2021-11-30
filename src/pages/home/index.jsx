@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import userService from '../../services/userService'
 
 /**
- * Component for displaying home page main element
+ * Display home page main element
  * @component
  * @returns {object} <main> html object
  */
