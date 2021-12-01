@@ -11,26 +11,25 @@ addTooltip.propTypes = {
  * @returns {object} tooltip svg group
  */
 function addTooltip(svg) {
-    // Création d'un groupe qui contiendra tout le tooltip plus le cercle de suivi
+    // Creation of a group that will contain all the tooltip plus the tracking circle
     var tooltip = svg.append("g")
         .attr("id", "tooltip")
         .style("display", "none");
   
-    // Le cercle intérieur bleu foncé
+    // Creation of the blue inner circle
     tooltip.append("circle")
         .attr("fill", "white")
         .attr("stroke", "#fff")
         .attr("r", 4);
     
-    // Le tooltip en lui-même 
-    // Il faut le dimensionner en fonction du contenu
+    // Creation of the tooltip
     tooltip.append("rect")
         .attr("width","40")
         .attr("height","25")
         .style("fill", "white")
         .attr("transform", "translate(-20, -55)");
     
-    // Cet élément contiendra tout notre texte
+    // creation of text boxes
     var text = tooltip.append("text")
         .style("font-size", "10px")
         .style("font-family", "Segoe UI")
@@ -38,16 +37,13 @@ function addTooltip(svg) {
         .style("fill", "#333333")
         .attr("transform", "translate(-15, -40)");
     
-    // Element pour la date avec positionnement spécifique
     text.append("tspan")
         .attr("dx", "-5")
         .attr("id", "tooltip-date");
-    
-    // Le texte "Cours : "
+
     text.append("tspan")
         .attr("dx", "5");
     
-    // Le texte pour la valeur de l'or à la date sélectionnée
     text.append("tspan")
         .attr("id", "tooltip-close")
         .style("font-weight", "bold");
@@ -165,6 +161,7 @@ function averageSessions( data, height, svg, width, margin ){
       }
     }
 
+    // add title
     let titlePath = svg.append("text").attr("fill", "white").attr("opacity", 0.5)
     .style("color", "white").style("font-size", width < 250 ? "small" : "medium")
     titlePath.append("tspan").text(chartTitle[0]).attr("y", 30).attr("x", 50)

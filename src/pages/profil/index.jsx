@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import useUserService from "../../utils/useUserService.jsx";
-import User from "../../models/User.js"
+import User from "../../models/user.js"
 import Chart from "../../components/chart";
 import Summary from '../../components/summary';
 

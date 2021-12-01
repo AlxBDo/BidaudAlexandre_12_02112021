@@ -31,7 +31,8 @@ const chartDimensions = {
         marginLeft = 0
     ) {
         let width = parseInt(this.windowWidth * multiplierOfWidth)
-        if(height === "width"){ height = width}
+        if(height === "width"){ height = width 
+        } else if(height < 3){ height = width * height } 
         return {
             width: width-(marginTop+marginBottom), 
             height: height-(marginTop+marginBottom), 

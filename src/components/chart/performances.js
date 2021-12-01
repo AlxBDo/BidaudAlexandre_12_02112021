@@ -17,7 +17,6 @@ function performances(data, height, svg, width, margin ){
 
 
     // data preparation
-
     let frenchDimensions = ["Cardio", "Energie", "Endurance", "Force", "Vitesse", "Intensité"]
     const dimensions = Object.values(data.kind).map((d, i) => frenchDimensions[i]).reverse()
 

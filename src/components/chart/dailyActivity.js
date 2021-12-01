@@ -64,7 +64,7 @@ function dailyActivity(data, height, svg, width, margin) {
      .style("font-size", "14px")
      .style("font-weight", "bold")
      .attr("dx", "-2.5em")
-     .attr("dy", "1.5em")
+     .attr("dy", "1.15em")
      .attr("transform", `translate(${width < 600 ? width*0.11 : width*0.09}, 0)`);
 
     // Add Y grid lines with labels
@@ -182,4 +182,4 @@ function dailyActivity(data, height, svg, width, margin) {
       });
 };
  
-export default dailyActivity;
+export default dailyActivity; 

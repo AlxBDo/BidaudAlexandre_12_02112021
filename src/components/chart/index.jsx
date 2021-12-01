@@ -52,11 +52,11 @@ function getChartConst(
  */
 const chartParams = {
   averageSessions: getChartConst("#F00", averageSessions, 31, "width", 0.9*0.7*0.31 ),
-  dailyActivity: getChartConst("#FBFBFB", dailyActivity, "96%", 320, 0.9*0.6, 0.05, 0.05, 0.05, 0.05 ),
+  dailyActivity: getChartConst("#FBFBFB", dailyActivity, "96%", 0.38, 0.9*0.6, 0.05, 0.05, 0.05, 0.05 ),
   performances: getChartConst("rgba(40, 45, 48, 1)", performances, 31, "width", 0.9*0.7*0.31, 0.01, 0.01, 0.01, 0.01 ),
   score: getChartConst("rgba(251, 251, 251, 1)", score, 31, "width", 0.9*0.7*0.31, 0.05, 0.05, 0.05, 0.05 ),
 }
-
+ 
 
 Chart.propTypes = {
   data : PropTypes.oneOfType([
