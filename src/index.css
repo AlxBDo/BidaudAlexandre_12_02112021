@@ -1,4 +1,14 @@
 *{ font-family: "Roboto"}
+
+a { text-decoration: none;}
+.App {
+	background-color: #FBFBFB;
+	border: 1px solid white;
+	display: inline-block;
+	margin-top: 45px;
+}
+#averageSessionsChart, #performancesChart, #scoreChart { overflow: hidden; }
+
 body{ 
 	height: 100%;
 	min-width: 1024px;
@@ -8,63 +18,7 @@ body, html, #root {
 	padding: 0;
 }
 
-a { text-decoration: none;}
-
-header img, header nav { margin: 0.5% 2%; }
-
-main {
-	margin-left: 10%;
-}
-
-
-#averageSessionsChart, #performancesChart, #scoreChart {
-	overflow: hidden;
-}
-
-.flex{ display: flex;}
-
-.App {
-	background-color: #FBFBFB;
-	border: 1px solid white;
-	display: inline-block;
-	margin-top: 45px;
-  }
-
-  .tooltip {
-	position: absolute;
-	top: 0;
-	background-color: #E60000;
-	color: white;
-	text-align: center
-}
-.tooltip p {
-	font-size: x-small;
-	padding: 7px 5px
-}
-
-h1 {
-	margin-top: 4%;
-	margin-bottom: 2%;
-	font-size: xxx-large;
-	font-weight: 500;
-}
-  
-h1, main p, #dashboard {
-	margin-left: 6%;
-}
-
-h1 span {
-	color: #FF0101;
-}
-
-main p:first-of-type:not(.summary-item-value) {
-	font-size: medium;
-	margin-bottom: 5%;
-}
-
-.day:hover {
-	fill: #C4C4C4;
-}
+#calories div:first-of-type { background-color: rgba(255, 0, 0, 0.066); }
 
 #dailyActivityChart {
 	background-color: #FBFBFB;
@@ -76,14 +30,41 @@ main p:first-of-type:not(.summary-item-value) {
 	border-radius: 5px;
 	padding: 3% 0%;
 }
-
-#summary {
-	margin-right: 3%;
-}
 #dashboard {
 	display: flex;
 	justify-content: space-between;
 }
+.day:hover { fill: #C4C4C4; }
+
+.flex{ display: flex;}
+
+#glucides div:first-of-type { background-color: rgba(249, 206, 35, 0.1); }
+
+h1 {
+	margin-top: 4%;
+	margin-bottom: 2%;
+	font-size: xxx-large;
+	font-weight: 500;
+}
+h1, main p, #dashboard { margin-left: 6%; }
+h1 span { color: #FF0101; }
+header img, header nav { margin: 0.5% 2%; }
+
+#lipides div:first-of-type { background-color: rgba(253, 81, 129, 0.1); }
+
+main { margin-left: 10%; }
+main p:first-of-type:not(.summary-item-value) {
+	font-size: medium;
+	margin-bottom: 5%;
+}
+
+#proteines div:first-of-type { background-color: rgba(74, 184, 255, 0.1); }
+#performancesChart {
+	margin-left: 3.5%;
+	margin-right: 3.5%;
+}
+
+#summary { margin-right: 3%; }
 #summary div.summaryItem {
 	margin: 0 auto 45px;
 	max-width: 258px;
@@ -95,9 +76,13 @@ main p:first-of-type:not(.summary-item-value) {
 	min-width: 210px;
 	border-radius: 5px;
 }
-#summary div div:first-of-type img {
-	margin: 21px auto;
+#summary div div:first-of-type {
+	width: 60px;
+	height: 60px;
+	border-radius: 5px;
+	text-align: center;
 }
+#summary div div:first-of-type img { margin: 21px auto; }
 #summary div div:last-of-type p:last-of-type {
 	font-size: small;
 	color: gray;
@@ -108,37 +93,20 @@ main p:first-of-type:not(.summary-item-value) {
 	color: black;
 	font-weight: bold;
 }
-#summary div div:first-of-type {
-	width: 60px;
-	height: 60px;
-	border-radius: 5px;
-	text-align: center;
-}
-.summaryItem div {
-	margin: 7%;
-}
-.summaryItem div p {
-	margin: 8px auto;
-}
+.summaryItem div { margin: 7%; }
+.summaryItem div p { margin: 8px auto; }
 
-#calories div:first-of-type {
-	background-color: rgba(255, 0, 0, 0.066);
+.tooltip {
+	position: absolute;
+	top: 0;
+	background-color: #E60000;
+	color: white;
+	text-align: center
 }
-#glucides div:first-of-type {
-	background-color: rgba(249, 206, 35, 0.1);
+.tooltip p {
+	font-size: x-small;
+	padding: 7px 5px
 }
-#lipides div:first-of-type {
-	background-color: rgba(253, 81, 129, 0.1);
-}
-#proteines div:first-of-type {
-	background-color: rgba(74, 184, 255, 0.1);
-}
-
-#performancesChart {
-	margin-left: 3.5%;
-	margin-right: 3.5%;
-}
-
 
 /**
  * Keyframes
